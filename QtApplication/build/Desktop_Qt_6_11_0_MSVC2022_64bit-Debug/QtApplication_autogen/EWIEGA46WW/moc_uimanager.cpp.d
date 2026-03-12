@@ -201,6 +201,7 @@ C:/Users/leanneheroux/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_1
   C:/Qt/6.11.0/msvc2022_64/include/QtCore/qversiontagging.h \
   C:/Qt/6.11.0/msvc2022_64/include/QtCore/qxptype_traits.h \
   C:/Qt/6.11.0/msvc2022_64/include/QtCore/qyieldcpu.h \
+  C:/Qt/6.11.0/msvc2022_64/include/QtGui/QFont \
   C:/Qt/6.11.0/msvc2022_64/include/QtGui/QKeyEvent \
   C:/Qt/6.11.0/msvc2022_64/include/QtGui/QTransform \
   C:/Qt/6.11.0/msvc2022_64/include/QtGui/qaction.h \

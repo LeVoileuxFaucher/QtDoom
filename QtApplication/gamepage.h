@@ -30,34 +30,83 @@ public:
 
 private:
     QStackedWidget *stackedWidget;
+
     QWidget *gameWidget;
     QWidget *popupWidget;
     QWidget *gameOverWidget;
+    QWidget *centralWidget;
+    QWidget *barWidget;
 
-    // Les boutons pour le popup menu
     QPushButton *menu_retryButton;
     QPushButton *menu_quitButton;
     QPushButton *menu_continueButton;
-
-    // Les boutons pour le popup gameOver
     QPushButton *over_retryButton;
     QPushButton *over_quitButton;
-
-    //selection boutons
-    int menuCurrentIndex=0;
-    int overCurrentIndex=0;
-
-    // La barre de vie et le nombre de balles
-    QProgressBar *m_barVie;
-    QLineEdit *m_writeAmo;
     QPushButton *m_shootButton;
 
-    //listes des boutons
+    QVBoxLayout *mainLayout;
+    QVBoxLayout *gameLayout;
+    QVBoxLayout *centralLayout;
+    QVBoxLayout *popupLayout;
+    QVBoxLayout *buttonLayout;
+    QVBoxLayout *buttonOverLayout;
+    QVBoxLayout *gameOverLayout;
+
+    QHBoxLayout *barLayout;
+    QHBoxLayout *retryButtonLayout;
+    QHBoxLayout *quitButtonLayout;
+    QHBoxLayout *continueButtonLayout;
+    QHBoxLayout *retryOverButtonLayout;
+    QHBoxLayout *quitOverButtonLayout;
+
+    QLabel *labelVie;
+    QLabel *labelBalles;
+    QLabel *labelAmo;
+    QLabel *popupTitle;
+    QLabel *gameOverTitle;
+
+    QFont font;
+    QFont overFont;
+
+    QProgressBar *m_barVie;
+    QProgressBar *m_barBalles;
+    QLineEdit *m_writeAmo;
+
     QVector<QPushButton*> menuButtons;
     QVector<QPushButton*> overButtons;
 
     bool potTurns=false;
     bool shootPress=false;
+    int menuCurrentIndex=0;
+    int overCurrentIndex=0;
+
+    void addGameWidget(QGraphicsView *view);
+    void addMenuPopupWidget();
+    void addGameoverWidget();
+    void connectButtons();
+    void addVieProgressBar();
+    void addBallesNum();
+    void addBarreEtat();
+    void addLayoutBarreEtat();
+    void addRetryButtonMenu();
+    void addContinueButtonMenu();
+    void addQuitButtonMenu();
+    void addRetryButtonMenuLayout();
+    void addContinueButtonMenuLayout();
+    void addQuitButtonMenuLayout();
+    void addPageMenuLayout();
+    void addTitleMenu();
+    void addTitleMenuLayout();
+    void addTitleOver();
+    void addRetryButtonOver();
+    void addQuitButtonOver();
+    void addTitleOverLayout();
+    void addRetryButtonOverLayout();
+    void addQuitButtonOverLayout();
+    void addPageOverLayout();
+    void addBallesProgressBar();
+    void updateVie(int vie);
+    void updateBalles(int balles);
 
 signals:
     void menu_quitClickedSig();

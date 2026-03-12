@@ -21,10 +21,10 @@ UIManager::UIManager(QGraphicsView *view, QWidget *parent): QWidget(parent) {
 
     // Connexions des boutons
     connect(menuPage, &MenuPage::menu_playClickedSig, this, [this]() {
-        qDebug() << "connect ok";
+        //qDebug() << "connect ok";
         stackedWidget->setCurrentWidget(gamePage);
         emit startGame();
-        qDebug() << "le jeu commence";
+        //qDebug() << "le jeu commence";
     });
 
     connect(menuPage, &MenuPage::menu_levelClickedSig, this, [this]() {
@@ -109,19 +109,19 @@ void UIManager::activateSelectedButton()
 {
     if(stackedWidget->currentWidget()==menuPage)
     {
-        qDebug() << "selection ui menu";
+        //qDebug() << "selection ui menu";
         getMenuPage()->activateSelectedButton();
         return;
     }
     if(stackedWidget->currentWidget()==gamePage)
     {
-        qDebug() << "selection ui game";
+        //qDebug() << "selection ui game";
         getGamePage()->activateSelectedButton();
         return;
     }
     if(stackedWidget->currentWidget()==levelPage)
     {
-        qDebug() << "selection ui level";
+        //qDebug() << "selection ui level";
         getLevelPage()->activateSelectedButton();
         return;
     }
@@ -132,7 +132,7 @@ void UIManager::potIsTurning()
     potTurns=true;
     if (stackedWidget->currentWidget()==getGamePage() && getGamePage()->gameIsOn()==true)
     {
-        qDebug() << "show popup";
+        //qDebug() << "show popup";
         getGamePage()->showMenuPopup();
     }
     else
@@ -161,12 +161,12 @@ void UIManager::shootReleased()
 
 void UIManager::keyPressEvent(QKeyEvent *event)
 {
-    qDebug() << "touche de ui pesee";
+    //qDebug() << "touche de ui pesee";
     emit keyPressSig(event);
 }
 
 void UIManager::keyReleaseEvent(QKeyEvent *event)
 {
-    qDebug() << "touche de ui relache";
+    //qDebug() << "touche de ui relache";
     emit keyReleaseSig(event);
 }

@@ -26,7 +26,14 @@ private:
     QPushButton *menu_playButton;
     QPushButton *menu_levelButton;
     QVector<QPushButton*> menuButtons;
+    QLabel *label_doom;
+    QFont font;
     int currentIndex=0;
+    void addDoomLabel();
+    void addPlayButton();
+    void addLevelButton();
+    void addPageLayout();
+    void connectButtons();
 
 public slots:
     void changeButtons();

@@ -39,7 +39,7 @@ template <> constexpr inline auto MenuPage::qt_create_metaobjectdata<qt_meta_tag
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
         "MenuPage",
-        "0$CsurmvmEPweSk388Jz2HWJaxfDo",
+        "0$2xkA8jEJDyoRqx6JBthSY4uwX2Y",
         "menu_levelClickedSig",
         "",
         "menu_playClickedSig",

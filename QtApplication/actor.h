@@ -12,7 +12,7 @@ Modifications:
 #include"geostructs.h"
 #include "Weapon.h"
 
-class Actor {
+class Actor{
 private:
     Vertex position;
     int health;
