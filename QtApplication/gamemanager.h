@@ -12,6 +12,7 @@ Modifications:
 #include<string>
 #include <QApplication>
 #include <QProcess>
+#include <QElapsedTimer>
 
 #include"actor.h"
 #include"geostructs.h"
@@ -36,6 +37,10 @@ private:
     std::vector<Linedef> walls;
     BSP* bsp;
     Weapon* m_playerWeapon = nullptr;
+
+    QElapsedTimer m_enemyAttackTimer;
+    float m_attackCooldown = 1000.0f;
+    bool m_inContact = false;
 };
 
 #endif // GAMEMANAGER_H

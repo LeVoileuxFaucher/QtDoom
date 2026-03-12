@@ -25,11 +25,14 @@ public:
     bool rotatingRight(){return rRight;}
     bool isShooting() {return shoot;}
 
-    bool justShot() { return m_justShot; }
-    void resetShot() { m_justShot = false; }
+    bool justShot()    { return m_justShot; }
+    void resetShot()   { m_justShot = false; }
 
     bool isReloading() {return m_justReload; }
     void resetReload() {m_justReload = false;}
+
+    bool isPowerUp()   {return m_powerUp;}
+    void resetPowerUp(){m_powerUp = false;}
 
 private:
     bool mFront;
@@ -41,6 +44,7 @@ private:
     bool shoot;
     bool m_justShot = false;
     bool m_justReload = false;
+    bool m_powerUp = false;
 
 public slots:
     void keyPressedEvent(QKeyEvent * event);

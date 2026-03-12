@@ -21,6 +21,8 @@ RenderManager::RenderManager(QGraphicsScene* scene, int screenWidth, int screenH
     m_scene = scene;
     m_screenWidth = screenWidth;
     m_screenHeight = screenHeight;
+
+    m_wallTexture = QPixmap(":/ressources/temp.jpg");
 }
 
 
@@ -37,7 +39,6 @@ void RenderManager::renderWall(const Linedef& wall, const Actor& player)
 
     float height1_floor = projectHeight(wall.floorHeight, p1.y);
     float height1_ceil  = projectHeight(wall.ceilingHeight, p1.y);
-
     float height2_floor = projectHeight(wall.floorHeight, p2.y);
     float height2_ceil  = projectHeight(wall.ceilingHeight, p2.y);
 
@@ -49,11 +50,26 @@ void RenderManager::renderWall(const Linedef& wall, const Actor& player)
 
     QGraphicsPolygonItem* wallItem = m_scene->addPolygon(polygon);
 
-    float avgDistance = (p1.y + p2.y) / 2.0f;
-    int brightness = std::max(0, std::min(255,
-                                          (int)(255.0f / (1.0f + avgDistance / 10.0f))));
+    float wallWidth  = std::abs(screen2.x - screen1.x);
+    float wallHeight = std::max(std::abs(height1_floor - height1_ceil),
+                                std::abs(height2_floor - height2_ceil));
 
-    wallItem->setBrush(QColor(brightness, brightness, brightness));
+    if (wallWidth < 1.0f)  wallWidth  = 1.0f;
+    if (wallHeight < 1.0f) wallHeight = 1.0f;
+
+    // Scale via transformation sans créer un nouveau QPixmap
+    float scaleX = wallWidth  / m_wallTexture.width();
+    float scaleY = wallHeight / m_wallTexture.height();
+
+    QTransform transform;
+    transform.translate(std::min(screen1.x, screen2.x),
+                        std::min(height1_ceil, height2_ceil));
+    transform.scale(scaleX, scaleY);
+
+    QBrush textureBrush(m_wallTexture);
+    textureBrush.setTransform(transform);
+
+    wallItem->setBrush(textureBrush);
     wallItem->setPen(Qt::NoPen);
 }
 
