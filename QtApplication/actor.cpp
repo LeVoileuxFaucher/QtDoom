@@ -66,21 +66,25 @@ float Actor::distancePlayerEnemy(const Actor& E,const Actor& P)
 
 void Actor::moveEnemy(const Actor& Player, float deltaTime)
 {
-    float distX = Player.getPosition().x - position.x;
-    float distY = Player.getPosition().y - position.y;
-    float distance = std::sqrt(distX * distX + distY * distY);
-
-
-    angle = std::atan2(distY, distX);
-
-
-    if (distance < EnemyRange && distance > 0.01f)
+    if(canMove)
     {
-        float nx = distX / distance;
-        float ny = distY / distance;
-        position.x += nx * EnemySpeed * deltaTime;
-        position.y += ny * EnemySpeed * deltaTime;
+        float distX = Player.getPosition().x - position.x;
+        float distY = Player.getPosition().y - position.y;
+        float distance = std::sqrt(distX * distX + distY * distY);
+
+
+        angle = std::atan2(distY, distX);
+
+
+        if (distance < EnemyRange && distance > 0.01f)
+        {
+            float nx = distX / distance;
+            float ny = distY / distance;
+            position.x += nx * EnemySpeed * deltaTime;
+            position.y += ny * EnemySpeed * deltaTime;
+        }
     }
+
 }
 
 void Actor::setWeapon(Weapon *w)
@@ -100,5 +104,9 @@ bool Actor::hasWeapon() const
         return true;
     }
     return false;
+}
+void Actor::setMovement(bool movement)
+{
+    canMove = movement;
 }
 

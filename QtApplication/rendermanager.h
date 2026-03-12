@@ -54,6 +54,8 @@ private:
     float m_rayStartX = 0;
     float m_rayStartY = 0;
     bool hit = false;
+    QPixmap m_wallTexture;
+
 
 
 

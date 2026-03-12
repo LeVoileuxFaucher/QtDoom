@@ -12,6 +12,7 @@ Modifications:
 #include<string>
 #include <QApplication>
 #include <QProcess>
+#include <QElapsedTimer>
 
 #include"actor.h"
 #include"geostructs.h"
@@ -46,6 +47,10 @@ private:
     std::vector<Vertex> verteces;
     std::vector<Linedef> linedefs;
     std::vector<Sector> sectors;
+
+    QElapsedTimer m_enemyAttackTimer;
+    float m_attackCooldown = 1000.0f;
+    bool m_inContact = false;
 };
 
 #endif // GAMEMANAGER_H

@@ -10,15 +10,17 @@ Modifications:
 
 Weapon::Weapon(int dmg, float rng, float rate, int maxAmmo, float reloadTime)
 {
-    damage = dmg;
-    range = rng;
-    fireRate = rate;
-    m_maxAmmo = maxAmmo;
+    damage        = dmg;
+    range         = rng;
+    fireRate      = rate;
+    m_baseFireRate = rate;
+    m_maxAmmo     = maxAmmo;
+    m_baseMaxAmmo  = maxAmmo;
     m_currentAmmo = maxAmmo;
     m_reloadTime  = reloadTime;
-
     m_shootTimer.start();
     m_reloadTimer.start();
+    m_powerUpCdTimer.start();
 }
 
 Weapon::~Weapon()
@@ -88,6 +90,39 @@ void Weapon::restartShootTimer()
 {
     m_shootTimer.restart();
 }
+
+void Weapon::powerUp()
+{
+    if (m_isPoweredUp) return;
+    if (m_powerUpCdTimer.elapsed() < powerUpCd) return;
+
+    qDebug("POWER UP activé");
+    m_isPoweredUp  = true;
+    m_maxAmmo      = m_baseMaxAmmo  * 4;
+    fireRate       = m_baseFireRate * 2;
+    m_currentAmmo  = m_maxAmmo;
+
+    m_powerUpTimer.restart();
+}
+
+void Weapon::updatePowerUp()
+{
+    if (!m_isPoweredUp) return;
+
+    if (m_powerUpTimer.elapsed() >= powerUpDuration)
+    {
+        qDebug("POWER UP terminé — cooldown démarré");
+        m_isPoweredUp = false;
+        m_maxAmmo     = m_baseMaxAmmo;
+        fireRate      = m_baseFireRate;
+        if (m_currentAmmo > m_maxAmmo)
+            m_currentAmmo = m_maxAmmo;
+
+        m_powerUpCdTimer.restart();
+    }
+}
+
+bool Weapon::isPoweredUp() { return m_isPoweredUp; }
 
 bool    Weapon::isEmpty()        { return m_currentAmmo <= 0; }
 int     Weapon::getCurrentAmmo() { return m_currentAmmo;      }

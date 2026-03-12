@@ -63,18 +63,38 @@ void GameManager::update(float deltaTime, std::vector<Linedef> renderedWalls)
     // Enemy damage detection
     if (inRadius(p, e))
     {
+
         if (e->getHealth() == 0) return;
-        p->takeDamage(1);
+
+        if(!m_inContact)
+        {
+            m_inContact=true;
+            m_enemyAttackTimer.restart();
+            e->setMovement(false);
+            p->takeDamage(1);
+        }
+        else if(m_enemyAttackTimer.elapsed() >= m_attackCooldown)
+        {
+            m_inContact = false;
+            p->takeDamage(1);
+            m_enemyAttackTimer.restart();
+        }
+
         if (p->getHealth() < 1)
         {
             qDebug("Player Dead");
         }
     }
+    else
+    {
+        e->setMovement(true);
+        m_inContact = false;
+    }
 }
 
 bool GameManager::inRadius(Actor* p, Actor* e)
 {
-    float radius = 0.3f;
+    float radius = 4.0f;
     float dx = p->getPosition().x - e->getPosition().x;
     float dy = p->getPosition().y - e->getPosition().y;
 

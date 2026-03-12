@@ -40,6 +40,10 @@ void ControllerManager::keyPressedEvent(QKeyEvent * event)
     {
         m_justReload = true;
     }
+    if(event->key() == Qt::Key_P)
+    {
+        m_powerUp = true;
+    }
 }
 
 void ControllerManager::keyReleasedEvent(QKeyEvent * event)
@@ -51,5 +55,7 @@ void ControllerManager::keyReleasedEvent(QKeyEvent * event)
     if (event->key() == Qt::Key_Q) rLeft = false;
     if (event->key() == Qt::Key_E) rRight = false;
     if (event->key() == Qt::Key_F) shoot = false;
+    if (event->key() == Qt::Key_R) m_justReload = false;
+    if (event->key() == Qt::Key_P) m_powerUp = false;
 }
 

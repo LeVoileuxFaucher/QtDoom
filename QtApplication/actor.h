@@ -12,6 +12,7 @@ Modifications:
 #include"geostructs.h"
 #include "Weapon.h"
 
+
 class Actor {
 private:
     Vertex position;
@@ -22,7 +23,7 @@ private:
     float EnemySpeed = 2.0f;
     float dx = 0;
     float dy = 0;
-
+    bool canMove = true;
     Weapon* m_weapon = nullptr;
 
 public:
@@ -39,6 +40,7 @@ public:
     void setAngle(float newAngle);
     void rotate(float deltaAngle);
     void setPosition(float x, float y);
+    void setMovement(bool mouvement);
 
     //Enemy
     float distancePlayerEnemy(const Actor& E, const Actor& P);

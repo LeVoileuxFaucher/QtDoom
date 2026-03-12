@@ -45,6 +45,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         gamemanager.h gamemanager.cpp
         uimanager.h uimanager.cpp
         mapreader.h mapreader.cpp
+        images.qrc
+
+
 
     )
 # Define target properties for Android with Qt 6 as:

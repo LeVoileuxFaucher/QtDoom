@@ -97,6 +97,16 @@ void Engine::gameLoop()
         cManager->resetReload();
     }
     rManager->render(*gManager->getPlayer(),*gManager->getEnemy(), gManager->getBSP(), gManager->getVerteces());
+
+    if(cManager->isPowerUp())
+    {
+         Weapon* weapon = gManager->getPlayer()->getWeapon();
+        if(weapon!=nullptr)
+         {
+             weapon->powerUp();
+         }
+        cManager->resetPowerUp();
+    }
     gManager->update(deltaTime, rManager->getRenderedWalls());
 
 }
