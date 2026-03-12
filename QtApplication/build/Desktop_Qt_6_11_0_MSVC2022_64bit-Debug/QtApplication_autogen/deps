@@ -210,7 +210,6 @@ QtApplication_autogen/timestamp: \
 	C:/Qt/6.11.0/msvc2022_64/include/QtCore/qxptype_traits.h \
 	C:/Qt/6.11.0/msvc2022_64/include/QtCore/qyieldcpu.h \
 	C:/Qt/6.11.0/msvc2022_64/include/QtGui/QColor \
-	C:/Qt/6.11.0/msvc2022_64/include/QtGui/QFont \
 	C:/Qt/6.11.0/msvc2022_64/include/QtGui/QKeyEvent \
 	C:/Qt/6.11.0/msvc2022_64/include/QtGui/QPolygonF \
 	C:/Qt/6.11.0/msvc2022_64/include/QtGui/QTransform \

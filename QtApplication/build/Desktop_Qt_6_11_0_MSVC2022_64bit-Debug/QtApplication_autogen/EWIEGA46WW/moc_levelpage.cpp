@@ -40,7 +40,7 @@ template <> constexpr inline auto LevelPage::qt_create_metaobjectdata<qt_meta_ta
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
         "LevelPage",
-        "0$2gu975y93ggZ8QC/BKGifnrE9XM",
+        "0$Ahuc5pqMCBJ70LnvWu4YIitq6Fs",
         "level_1ClickedSig",
         "",
         "level_2ClickedSig",

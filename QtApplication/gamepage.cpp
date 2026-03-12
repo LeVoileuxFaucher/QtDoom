@@ -11,254 +11,141 @@ Modifications:
 GamePage::GamePage(QGraphicsView *view, QWidget *parent)
     : QWidget(parent)
 {
-    mainLayout = new QVBoxLayout(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+
     stackedWidget = new QStackedWidget(this);
-    addGameWidget(view);
-    addMenuPopupWidget();
-    addGameoverWidget();
-    menuButtons.append(menu_retryButton);
-    menuButtons.append(menu_quitButton);
-    menuButtons.append(menu_continueButton);
-    overButtons.append(over_retryButton);
-    overButtons.append(over_quitButton);
-    connectButtons();
-}
 
-void GamePage::addGameWidget(QGraphicsView *view)
-{
-    gameWidget = new QWidget(this);
-    centralWidget = new QWidget(this);
-    gameLayout = new QVBoxLayout(gameWidget);
-    centralLayout = new QVBoxLayout(centralWidget);
+    //------game Widget------
+    gameWidget = new QWidget(this);  // Création du centralWidget
+    QVBoxLayout *gameLayout = new QVBoxLayout(gameWidget);
+    QWidget *centralWidget = new QWidget(this);
+    QVBoxLayout *centralLayout = new QVBoxLayout(centralWidget);
     gameLayout->addWidget(centralWidget);
-    addBarreEtat();
-    addVieProgressBar();
-    //addBallesNum();
-    addBallesProgressBar();
-    //layout du jeu
-    centralLayout->addWidget(view);
-    gameLayout->addWidget(centralWidget);
-    addLayoutBarreEtat();
-    gameLayout->addWidget(barWidget);
-    stackedWidget->addWidget(gameWidget);
-}
-
-void GamePage::addVieProgressBar()
-{
-    labelVie = new QLabel("vie:");
+    //----barre d'état au bas de l'écran----
+    QWidget *barWidget = new QWidget;
+    barWidget->setStyleSheet("background-color: gray;");
+    barWidget->setFixedHeight(100);
+    QHBoxLayout *barLayout = new QHBoxLayout(barWidget);
+    //barre de vie du joueur
+    QLabel *labelVie = new QLabel("vie:");
     m_barVie = new QProgressBar;
     m_barVie->setFixedHeight(30);
     m_barVie->setFixedWidth(200);
     m_barVie->setTextVisible(false);
-    m_barVie->setStyleSheet("QProgressBar{background-color:lightgrey; border: 2px solid black; border-radius: 5px;} QProgressBar::chunk{background-color:green;}");
+    m_barVie->setStyleSheet("QProgressBar{background-color:lightgrey; border: 2px solid black; border-radius: 5px;} QProgressBar::chunk{background:green;}");
     m_barVie->setValue(80); //a modifier
-}
-
-void GamePage::addBallesProgressBar()
-{
-    //qDebug("on entre dans la fonction");
-    labelBalles = new QLabel("balles:");
-    m_barBalles = new QProgressBar;
-    m_barBalles->setFixedHeight(30);
-    m_barBalles->setFixedWidth(202);
-    m_barBalles->setTextVisible(false);
-    m_barBalles->setStyleSheet("QProgressBar{background:#222; color: white; border: 2px solid #333; border-radius: 4px;} QProgressBar::chunk{background-color:white; width: 8px; margin-right:2px;}");
-    m_barBalles->setRange(0,20);
-    m_barBalles->setValue(20); //a modifier
-}
-
-void GamePage::addBallesNum()
-{
-    labelAmo = new QLabel("balles:");
+    //nb de balles tirées
+    QLabel *labelAmo = new QLabel("balles:");
     m_writeAmo = new QLineEdit;
     m_writeAmo->setFixedWidth(40);
     m_writeAmo->setReadOnly(true);
     m_writeAmo->setText(QString::number(10)); //a modifier
-}
-
-void GamePage::addBarreEtat()
-{
-    barWidget = new QWidget;
-    barWidget->setStyleSheet("background-color: gray;");
-    barWidget->setFixedHeight(100);
-}
-
-void GamePage::addLayoutBarreEtat()
-{
-    barLayout = new QHBoxLayout(barWidget);
+    // Ajouter le jeu (view) à l'application, il occupe toute la fenêtre
+    centralLayout->addWidget(view);
+    gameLayout->addWidget(centralWidget);
+    //layout de la barre d'état
     barLayout->addStretch();
     barLayout->addWidget(labelVie);
     barLayout->addWidget(m_barVie);
     barLayout->addSpacing(100);
-    /*barLayout->addWidget(labelAmo);
-    barLayout->addWidget(m_writeAmo);*/
-    barLayout->addWidget(labelBalles);
-    barLayout->addWidget(m_barBalles);
+    barLayout->addWidget(labelAmo);
+    barLayout->addWidget(m_writeAmo);
     barLayout->addStretch();
-}
+    gameLayout->addWidget(barWidget);
+    // Layout de la fenêtre principale (jeu)
+    stackedWidget->addWidget(gameWidget);
 
-void GamePage::addMenuPopupWidget()
-{
-    addTitleMenu();
-    addTitleMenuLayout();
-    buttonLayout = new QVBoxLayout;
-    //créer les boutons
-    addRetryButtonMenu();
-    addQuitButtonMenu();
-    addContinueButtonMenu();
-    //ajouter layout
-    addRetryButtonMenuLayout();
-    addQuitButtonMenuLayout();
-    addContinueButtonMenuLayout();
-    addPageMenuLayout();
-    stackedWidget->addWidget(popupWidget);
-}
-
-void GamePage::addTitleMenu()
-{
+    //----popup Widget menu----
     popupWidget = new QWidget(this);  // Popup à afficher
-    popupLayout = new QVBoxLayout(popupWidget);
-    popupTitle = new QLabel("En pause");
+    QVBoxLayout *popupLayout = new QVBoxLayout(popupWidget);
+    QLabel *popupTitle = new QLabel("En pause");
+    QFont font;
     font.setPointSize(20);
     font.setBold(true);
     popupTitle->setFont(font);
-    popupTitle->setAlignment(Qt::AlignCenter);
-}
-
-void GamePage::addTitleMenuLayout()
-{
+    popupTitle->setAlignment(Qt::AlignCenter);  // Centrer le titre
+    // Ajouter le titre au layout avec un espace autour
     popupLayout->addStretch();  // Espace avant le titre
     popupLayout->addWidget(popupTitle);
     popupLayout->addSpacing(20);
-}
-
-void GamePage::addRetryButtonMenu()
-{
+    QVBoxLayout *buttonLayout = new QVBoxLayout;
+    // Création des 3 boutons
     menu_retryButton = new QPushButton("Recommencer");
     menu_retryButton->setStyleSheet("background-color: black; color: white;");
     menu_retryButton->setFixedSize(120, 40);
-}
-
-void GamePage::addContinueButtonMenu()
-{
-    menu_continueButton = new QPushButton("Continuer");
-    menu_continueButton->setStyleSheet("background-color: black; color: white;");
-    menu_continueButton->setFixedSize(120, 40);
-}
-
-void GamePage::addQuitButtonMenu()
-{
     menu_quitButton = new QPushButton("Quitter");
     menu_quitButton->setStyleSheet("background-color: black; color: white;");
     menu_quitButton->setFixedSize(120, 40);
-}
-
-void GamePage::addRetryButtonMenuLayout()
-{
-    retryButtonLayout = new QHBoxLayout();
+    menu_continueButton = new QPushButton("Continuer");
+    menu_continueButton->setStyleSheet("background-color: black; color: white;");
+    menu_continueButton->setFixedSize(120, 40);
+    //Centrer chaque bouton horizontalement
+    QHBoxLayout *retryButtonLayout = new QHBoxLayout();
     retryButtonLayout->addStretch();
     retryButtonLayout->addWidget(menu_retryButton);
     retryButtonLayout->addStretch();
-}
-
-void GamePage::addContinueButtonMenuLayout()
-{
-    continueButtonLayout = new QHBoxLayout();
-    continueButtonLayout->addStretch();
-    continueButtonLayout->addWidget(menu_continueButton);
-    continueButtonLayout->addStretch();
-}
-
-void GamePage::addQuitButtonMenuLayout()
-{
-    quitButtonLayout = new QHBoxLayout();
+    QHBoxLayout *quitButtonLayout = new QHBoxLayout();
     quitButtonLayout->addStretch();
     quitButtonLayout->addWidget(menu_quitButton);
     quitButtonLayout->addStretch();
-}
-
-void GamePage::addPageMenuLayout()
-{
+    QHBoxLayout *continueButtonLayout = new QHBoxLayout();
+    continueButtonLayout->addStretch();
+    continueButtonLayout->addWidget(menu_continueButton);
+    continueButtonLayout->addStretch();
+    // Ajouter les boutons centrés au layout vertical
     buttonLayout->addLayout(retryButtonLayout);
     buttonLayout->addLayout(quitButtonLayout);
     buttonLayout->addLayout(continueButtonLayout);
     popupLayout->addLayout(buttonLayout);
     popupLayout->addStretch();
-}
+    // Ajouter popupWidget au stackedWidget
+    stackedWidget->addWidget(popupWidget);
 
-void GamePage::addGameoverWidget()
-{
-    gameOverWidget = new QWidget(this);
-    gameOverLayout = new QVBoxLayout(gameOverWidget);
-    addTitleOver();
-    addRetryButtonOver();
-    addQuitButtonOver();
-    //ajouter layout
-    addTitleOverLayout();
-    addRetryButtonOverLayout();
-    addQuitButtonOverLayout();
-    addPageOverLayout();
-    stackedWidget->addWidget(gameOverWidget);
-    mainLayout->addWidget(stackedWidget);
-}
-
-void GamePage::addTitleOver()
-{
-    gameOverTitle = new QLabel("Game Over");
+    //----popup Widget gameover----
+    gameOverWidget = new QWidget(this);  // Popup à afficher
+    QVBoxLayout *gameOverLayout = new QVBoxLayout(gameOverWidget);
+    QLabel *gameOverTitle = new QLabel("Game Over");
+    QFont overFont;
     overFont.setPointSize(20);
     overFont.setBold(true);
     gameOverTitle->setFont(font);
     gameOverTitle->setAlignment(Qt::AlignCenter);  // Centrer le titre
-}
-
-void GamePage::addRetryButtonOver()
-{
-    over_retryButton = new QPushButton("Recommencer");
-    over_retryButton->setStyleSheet("background-color: black; color: white;");
-    over_retryButton->setFixedSize(120, 40);
-}
-
-void GamePage::addQuitButtonOver()
-{
-    over_quitButton = new QPushButton("Quitter");
-    over_quitButton->setStyleSheet("background-color: black; color: white;");
-    over_quitButton->setFixedSize(120, 40);
-}
-
-void GamePage::addTitleOverLayout()
-{
+    // Ajouter le titre au layout avec un espace autour
     gameOverLayout->addStretch();  // Espace avant le titre
     gameOverLayout->addWidget(gameOverTitle);
     gameOverLayout->addSpacing(20);
-    buttonOverLayout = new QVBoxLayout;
-}
-
-void GamePage::addRetryButtonOverLayout()
-{
-    retryOverButtonLayout = new QHBoxLayout();
+    QVBoxLayout *buttonOverLayout = new QVBoxLayout;
+    // Création des 3 boutons
+    over_retryButton = new QPushButton("Recommencer");
+    over_retryButton->setStyleSheet("background-color: black; color: white;");
+    over_retryButton->setFixedSize(120, 40);
+    over_quitButton = new QPushButton("Quitter");
+    over_quitButton->setStyleSheet("background-color: black; color: white;");
+    over_quitButton->setFixedSize(120, 40);
+    //Centrer chaque bouton horizontalement
+    QHBoxLayout *retryOverButtonLayout = new QHBoxLayout();
     retryOverButtonLayout->addStretch();
     retryOverButtonLayout->addWidget(over_retryButton);
     retryOverButtonLayout->addStretch();
-}
-
-void GamePage::addQuitButtonOverLayout()
-{
-    quitOverButtonLayout = new QHBoxLayout();
+    QHBoxLayout *quitOverButtonLayout = new QHBoxLayout();
     quitOverButtonLayout->addStretch();
     quitOverButtonLayout->addWidget(over_quitButton);
     quitOverButtonLayout->addStretch();
-}
-
-void GamePage::addPageOverLayout()
-{
+    // Ajouter les boutons centrés au layout vertical
     buttonOverLayout->addLayout(retryOverButtonLayout);
     buttonOverLayout->addLayout(quitOverButtonLayout);
     gameOverLayout->addLayout(buttonOverLayout);
     gameOverLayout->addStretch();
-}
+    // Ajouter popupWidget au stackedWidget
+    stackedWidget->addWidget(gameOverWidget);
+    mainLayout->addWidget(stackedWidget);
 
-void GamePage::connectButtons()
-{
+    //ajout aux listes
+    menuButtons.append(menu_retryButton);
+    menuButtons.append(menu_quitButton);
+    menuButtons.append(menu_continueButton);
+    overButtons.append(over_retryButton);
+    overButtons.append(over_quitButton);
     //connect les boutons
     connect(menu_quitButton, &QPushButton::clicked, this, &GamePage::menu_quitClicked);
     connect(menu_retryButton, &QPushButton::clicked, this, &GamePage::menu_retryClicked);
@@ -267,11 +154,11 @@ void GamePage::connectButtons()
     connect(menu_continueButton, &QPushButton::clicked, this, &GamePage::menu_continueClicked);
     if (stackedWidget->currentWidget()==gameOverWidget)
     {
-        //qDebug() << "active==gameOver";
+        qDebug() << "active==gameOver";
     }
     if (stackedWidget->currentWidget()==popupWidget)
     {
-        //qDebug() << "active==popup";
+        qDebug() << "active==popup";
     }
 }
 
@@ -281,7 +168,7 @@ void GamePage::showEvent(QShowEvent *event)
 
 void GamePage::updateHighlight()
 {
-    //qDebug() << "update light";
+    qDebug() << "update light";
     // Réinitialiser les styles de tous les boutons
     for (int i=0; i<menuButtons.size(); i++) {
         menuButtons[i]->setStyleSheet("background-color: black; color: white;");
@@ -309,7 +196,7 @@ void GamePage::updateHighlight()
 
 void GamePage::activateSelectedButton()
 {
-    //qDebug() << "click selection dans game";
+    qDebug() << "click selection dans game";
     if (stackedWidget->currentWidget() == popupWidget) {
         if (menuCurrentIndex == 0) {
             menu_retryClicked();
@@ -330,42 +217,42 @@ void GamePage::activateSelectedButton()
 
 void GamePage::menu_quitClicked()
 {
-    //qDebug() << "menu_quitClicked";
+    qDebug() << "menu_quitClicked";
     stackedWidget->setCurrentWidget(gameWidget);
     emit menu_quitClickedSig();
 }
 
 void GamePage::menu_retryClicked()
 {
-    //qDebug() << "menu_retryClicked";
+    qDebug() << "menu_retryClicked";
     stackedWidget->setCurrentWidget(gameWidget);
     emit menu_retryClickedSig();
 }
 
 void GamePage::menu_continueClicked()
 {
-    //qDebug() << "menu_continueClicked";
+    qDebug() << "menu_continueClicked";
     stackedWidget->setCurrentWidget(gameWidget);
     emit menu_continueClickedSig();
 }
 
 void GamePage::over_quitClicked()
 {
-    //qDebug() << "over_quitClicked";
+    qDebug() << "over_quitClicked";
     stackedWidget->setCurrentWidget(gameWidget);
     emit over_quitClickedSig();
 }
 
 void GamePage::over_retryClicked()
 {
-    //qDebug() << "over_retryClicked";
+    qDebug() << "over_retryClicked";
     stackedWidget->setCurrentWidget(gameWidget);
     emit over_retryClickedSig();
 }
 
 void GamePage::changeButtons()
 {
-    //qDebug() << "changeButtons";
+    qDebug() << "changeButtons";
     if (stackedWidget->currentWidget() == popupWidget) {
         menuCurrentIndex++;
         if (menuCurrentIndex > 2) {
@@ -378,13 +265,13 @@ void GamePage::changeButtons()
             overCurrentIndex = 0;
         }
     }
-    //qDebug() << "menu current index:" << menuCurrentIndex;
-    //qDebug() << "over current index:" << overCurrentIndex;
+    qDebug() << "menu current index:" << menuCurrentIndex;
+    qDebug() << "over current index:" << overCurrentIndex;
 }
 
 void GamePage::setupNextSelect()
 {
-    //qDebug() << "setup Next";
+    qDebug() << "setup Next";
     menuCurrentIndex=0;
     overCurrentIndex = 0;
 }
@@ -398,14 +285,4 @@ void GamePage::showMenuPopup()
 bool GamePage::gameIsOn()
 {
     return stackedWidget->currentWidget()==gameWidget;
-}
-
-void GamePage::updateVie(int vie)
-{
-    m_barVie->setValue(vie);
-}
-
-void GamePage::updateBalles(int balles)
-{
-    m_barBalles->setValue(balles);
 }

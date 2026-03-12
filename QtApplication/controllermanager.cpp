@@ -25,7 +25,7 @@ ControllerManager::~ControllerManager()
 
 void ControllerManager::keyPressedEvent(QKeyEvent * event)
 {
-    //qDebug() << "You pressed a key";
+    qDebug() << "You pressed a key";
     if (event->key() == Qt::Key_W) mFront = true;
     if (event->key() == Qt::Key_S) mBack = true;
     if (event->key() == Qt::Key_A) mLeft = true;
@@ -51,7 +51,7 @@ void ControllerManager::keyPressedEvent(QKeyEvent * event)
 
 void ControllerManager::keyReleasedEvent(QKeyEvent * event)
 {
-    //qDebug() << "You pressed a key";
+    qDebug() << "You pressed a key";
     if (event->key() == Qt::Key_W) mFront = false;
     if (event->key() == Qt::Key_S) mBack = false;
     if (event->key() == Qt::Key_A) mLeft = false;
@@ -73,23 +73,23 @@ void ControllerManager::keyReleasedEvent(QKeyEvent * event)
 
 void ControllerManager::potTurnedEvent()
 {
-    //qDebug() << "pot turned";
+    qDebug() << "pot turned";
     emit potTurnedSig();
 }
 
 void ControllerManager::potStopedEvent()
 {
-    //qDebug() << "pot stoped";
+    qDebug() << "pot stoped";
     emit potStopedSig();
 }
 
 void ControllerManager::shootPressedEvent()
 {
-    //qDebug() << "shoot pressed";
+    qDebug() << "shoot pressed";
     emit shootPressedSig();
 }
 void ControllerManager::shootReleasedEvent()
 {
-    //qDebug() << "shoot released";
+    qDebug() << "shoot released";
     emit shootReleasedSig();
 }

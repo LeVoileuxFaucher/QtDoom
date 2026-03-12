@@ -40,7 +40,7 @@ template <> constexpr inline auto GamePage::qt_create_metaobjectdata<qt_meta_tag
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
         "GamePage",
-        "0$wu8Lt8CjdPAui9UtvkiQrdP+Iw0",
+        "0$IbgaXA+5gZRapg8jD8bAK1Aq3Eo",
         "menu_quitClickedSig",
         "",
         "menu_retryClickedSig",

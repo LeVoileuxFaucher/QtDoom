@@ -10,7 +10,7 @@ Modifications:
 #define WEAPON_H
 #include <QElapsedTimer>
 
-class Weapon{
+class Weapon {
 private:
 	int damage;
 	float range;
