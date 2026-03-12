@@ -43,9 +43,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
         geostructs.h
         gamemanager.h gamemanager.cpp
-        WadLvl1.txt
-        WadLvl2.txt
         uimanager.h uimanager.cpp
+        mapreader.h mapreader.cpp
 
     )
 # Define target properties for Android with Qt 6 as:

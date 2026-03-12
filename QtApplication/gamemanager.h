@@ -16,6 +16,7 @@ Modifications:
 #include"actor.h"
 #include"geostructs.h"
 #include"bsp.h"
+#include"mapreader.h"
 
 class GameManager
 {
@@ -28,12 +29,21 @@ public:
     void update(float deltaTime, std::vector<Linedef> renderedWalls);
     bool inRadius(Actor *p, Actor *e);
     bool shoot(QPoint mousePos, QSize screenSize);
+
+    const std::vector<Vertex>& getVerteces() const {return verteces;};
+    const std::vector<Linedef>& getLinedefs() const {return linedefs;};
+    const std::vector<Sector>& getSectors() const {return sectors;};
 private:
     Actor *p;
     Actor *e;
     std::vector<Actor*> creatures;
-    std::vector<Linedef> walls;
     BSP* bsp;
+    MapReader* map;
+
+    // Map data
+    std::vector<Vertex> verteces;
+    std::vector<Linedef> linedefs;
+    std::vector<Sector> sectors;
 };
 
 #endif // GAMEMANAGER_H

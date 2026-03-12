@@ -18,16 +18,17 @@ struct Vertex // Think of it as a 2D point
 
 struct Linedef // Think of it as a segment or a line
 {
-    Vertex start;
-    Vertex end;
-    float floorHeight;
-    float ceilingHeight;
-}; // TO BE CHANGED IF EVER CHANGING TO DOOM FORMAL STRUCTURES
+    int start; // Index to the vertex array
+    int end; // Index to the vertex array
+    int sideFront; // Sector index (front of the wall) (-1 if none)
+    int sideBack; // Sector index (back of the wall) (-1 if none)
+    bool twoSided;
+};
 
 struct Sidedef // Think of it as one side of the segment or the line
 {
     int sectorRef;
-}; // NOT USED YET, TO BE USED IF EVER CHANGING TO DOOM FORMAL STRUCTURES
+};
 
 struct Sector // Think of it as a polygon
 {
@@ -36,4 +37,4 @@ struct Sector // Think of it as a polygon
     float ceilingHeight;
 };
 
-#endif // NOT USED YET, TO BE USED IF EVER CHANGING TO DOOM FORMAL STRUCTURES
+#endif

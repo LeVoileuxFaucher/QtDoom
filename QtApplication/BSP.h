@@ -26,10 +26,10 @@ class BSP
 {
 public:
     BSP();
-    Node* Builder(std::vector<Linedef> segments);
-    void traverse(const Vertex& playerPosition, std::vector<Linedef>& renderedWalls);
-    void traverseNode(Node* node, const Vertex& playerPos, std::vector<Linedef>& walls);
-    void build(const std::vector<Linedef>& segments);
+    Node* Builder(std::vector<Linedef> segments, std::vector<Vertex>& verteces);
+    void traverse(const Vertex& playerPosition, std::vector<Linedef>& renderedWalls, const std::vector<Vertex>& verteces);
+    void traverseNode(Node* node, const Vertex& playerPos, std::vector<Linedef>& walls, const std::vector<Vertex>& verteces);
+    void build(const std::vector<Linedef>& segments, std::vector<Vertex>& verteces);
 private:
     Node* root;
 };

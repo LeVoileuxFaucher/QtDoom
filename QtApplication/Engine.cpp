@@ -68,7 +68,7 @@ void Engine::gameLoop()
         cManager->resetShot();
     }
 
-    rManager->render(*gManager->getPlayer(),*gManager->getEnemy(), gManager->getBSP());
+    rManager->render(*gManager->getPlayer(),*gManager->getEnemy(), gManager->getBSP(), gManager->getVerteces());
     gManager->update(deltaTime, rManager->getRenderedWalls());
 
 }

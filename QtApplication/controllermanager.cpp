@@ -25,7 +25,6 @@ ControllerManager::~ControllerManager()
 
 void ControllerManager::keyPressedEvent(QKeyEvent * event)
 {
-    qDebug() << "You pressed a key";
     if (event->key() == Qt::Key_W) mFront = true;
     if (event->key() == Qt::Key_S) mBack = true;
     if (event->key() == Qt::Key_A) mLeft = true;
@@ -41,7 +40,6 @@ void ControllerManager::keyPressedEvent(QKeyEvent * event)
 
 void ControllerManager::keyReleasedEvent(QKeyEvent * event)
 {
-    qDebug() << "You pressed a key";
     if (event->key() == Qt::Key_W) mFront = false;
     if (event->key() == Qt::Key_S) mBack = false;
     if (event->key() == Qt::Key_A) mLeft = false;
