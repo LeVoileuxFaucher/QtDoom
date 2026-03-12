@@ -1,0 +1,8 @@
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSVC2022_64bit-Debug/CMakeFiles/QtApplication.dir
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSVC2022_64bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSVC2022_64bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSVC2022_64bit-Debug/CMakeFiles/list_install_components.dir
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSVC2022_64bit-Debug/CMakeFiles/install.dir
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSVC2022_64bit-Debug/CMakeFiles/install/local.dir
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSVC2022_64bit-Debug/CMakeFiles/QtApplication_autogen_timestamp_deps.dir
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSVC2022_64bit-Debug/CMakeFiles/QtApplication_autogen.dir

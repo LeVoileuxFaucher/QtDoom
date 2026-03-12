@@ -258,6 +258,7 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/Engine.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstdint
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstdlib
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstring
+ mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/fstream
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/initializer_list
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iterator
@@ -271,6 +272,7 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/Engine.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/optional
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sal.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/set
+ mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sstream
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdarg.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdbool.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string
@@ -535,11 +537,13 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/Engine.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/gamepage.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/geoStructs.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/levelpage.h
+ mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mapreader.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/menupage.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/rendermanager.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/uimanager.h
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/uimanager.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/Weapon.h
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mapreader.h
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/gamepage.h
  mmc:Q_OBJECT
  mdp:C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/assert.h
@@ -792,9 +796,9 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/gamepage.h
  mdp:C:/Qt/6.10.2/msvc2022_64/include/QtWidgets/qtwidgetsglobal.h
  mdp:C:/Qt/6.10.2/msvc2022_64/include/QtWidgets/qwidget.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/gamepage.h
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/geoStructs.h
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/gamemanager.h
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/menupage.cpp
-C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/geoStructs.h
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/actor.h
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/controllermanager.h
  mmc:Q_OBJECT
@@ -1049,6 +1053,7 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mainwindow.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstdint
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstdlib
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstring
+ mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/fstream
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/initializer_list
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iterator
@@ -1062,6 +1067,7 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mainwindow.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/optional
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sal.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/set
+ mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sstream
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdarg.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdbool.h
  mdp:C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string
@@ -1327,10 +1333,10 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mainwindow.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/geoStructs.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/levelpage.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mainwindow.h
+ mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mapreader.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/menupage.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/rendermanager.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/uimanager.h
-C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/actor.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/menupage.h
  mmc:Q_OBJECT
  mdp:C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/ucrt/assert.h
@@ -1553,6 +1559,7 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/menupage.h
  mdp:C:/Qt/6.10.2/msvc2022_64/include/QtWidgets/qtwidgetsglobal.h
  mdp:C:/Qt/6.10.2/msvc2022_64/include/QtWidgets/qwidget.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/menupage.h
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/actor.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/rendermanager.h
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/uimanager.h
  mmc:Q_OBJECT
@@ -1812,15 +1819,14 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/uimanager.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/levelpage.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/menupage.h
  mdp:C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/uimanager.h
-C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/levelpage.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/BSP.cpp
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/levelpage.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/Engine.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/Weapon.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/controllermanager.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/gamemanager.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/gamepage.cpp
+C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mapreader.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/main.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mainwindow.cpp
 C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/rendermanager.cpp
-C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/texturedwallitem.h
-C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/texturedwallitem.cpp

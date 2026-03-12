@@ -40,6 +40,7 @@ public:
     void updateScreenSize(int width, int height);
 
     void setHit(bool h) {hit = h;}
+    void setPowerUpActive(bool active) { m_isPowerUpActive = active; }
 
 private:
     QGraphicsScene* m_scene;
@@ -55,6 +56,7 @@ private:
     float m_rayStartY = 0;
     bool hit = false;
     QPixmap m_wallTexture;
+    bool m_isPowerUpActive = false;
 
 
 

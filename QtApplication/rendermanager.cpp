@@ -236,6 +236,13 @@ void RenderManager::render(Actor m_player, Actor m_enemy, BSP* bsp, const std::v
         m_rayFramesLeft--;
     }
     renderGun();
+
+    if(m_isPowerUpActive)
+    {
+        QGraphicsRectItem* overlay = m_scene->addRect(0, 0, m_screenWidth, m_screenHeight);
+        overlay->setBrush(QColor(255, 0, 0, 60)); // 60 = transparence
+        overlay->setPen(Qt::NoPen);
+    }
 }
 
 void RenderManager::updateScreenSize(int width, int height)

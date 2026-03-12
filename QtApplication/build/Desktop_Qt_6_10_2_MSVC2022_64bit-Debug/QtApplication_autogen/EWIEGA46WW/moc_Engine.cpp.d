@@ -26,6 +26,7 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSV
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstdint \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstdlib \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cstring \
+  C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/fstream \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/initializer_list \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iterator \
@@ -39,6 +40,7 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSV
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/optional \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sal.h \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/set \
+  C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sstream \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdarg.h \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdbool.h \
   C:/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string \
@@ -302,6 +304,7 @@ C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/build/Desktop_Qt_6_10_2_MSV
   C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/gamepage.h \
   C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/geostructs.h \
   C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/levelpage.h \
+  C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/mapreader.h \
   C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/menupage.h \
   C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/rendermanager.h \
   C:/Users/Admin/Documents/GitHub/QtDoom/QtApplication/uimanager.h

@@ -46,6 +46,7 @@ void Engine::gameLoop()
 {
     int currentWidth = m_view->width();
     int currentHeight = m_view->height();
+    Weapon* weapon = gManager->getPlayer()->getWeapon();
 
     if(currentWidth!=m_width || currentHeight!=m_height)
     {
@@ -66,7 +67,6 @@ void Engine::gameLoop()
     if(cManager->rotatingRight()) gManager->getPlayer()->setAngle(gManager->getPlayer()->getAngle()-0.05f);
     if (cManager->justShot())
     {
-        Weapon* weapon = gManager->getPlayer()->getWeapon();
 
         rManager->setHit(false);
         if (weapon && weapon->canShoot())
@@ -88,7 +88,6 @@ void Engine::gameLoop()
 
     if(cManager->isReloading())
     {
-        Weapon* weapon = gManager->getPlayer()->getWeapon();
 
         if(weapon!=nullptr)
         {
@@ -100,16 +99,20 @@ void Engine::gameLoop()
 
     if(cManager->isPowerUp())
     {
-         Weapon* weapon = gManager->getPlayer()->getWeapon();
         if(weapon!=nullptr)
          {
              weapon->powerUp();
+           qDebug() << weapon->getCurrentAmmo() << weapon->getFireRate();
          }
         cManager->resetPowerUp();
     }
     gManager->update(deltaTime, rManager->getRenderedWalls());
-
+    gManager->getPlayer()->getWeapon()->updatePowerUp();
+    rManager->setPowerUpActive(weapon->isPoweredUp());
 }
+
+
+
 
 ControllerManager* Engine::getcManager() const
 {
