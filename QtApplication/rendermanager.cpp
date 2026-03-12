@@ -24,10 +24,10 @@ RenderManager::RenderManager(QGraphicsScene* scene, int screenWidth, int screenH
 }
 
 
-void RenderManager::renderWall(const Linedef& wall, const Actor& player)
+void RenderManager::renderWall(const Linedef& wall, const std::vector<Vertex>& verteces, const Actor& player)
 {
-    Vertex p1 = coordPlayer(wall.start, player);
-    Vertex p2 = coordPlayer(wall.end, player);
+    Vertex p1 = coordPlayer(verteces[wall.start], player);
+    Vertex p2 = coordPlayer(verteces[wall.end], player);
 
     if (!clipWall(p1, p2))
         return;
@@ -35,11 +35,11 @@ void RenderManager::renderWall(const Linedef& wall, const Actor& player)
     Vertex screen1 = projectToScreen(p1);
     Vertex screen2 = projectToScreen(p2);
 
-    float height1_floor = projectHeight(wall.floorHeight, p1.y);
-    float height1_ceil  = projectHeight(wall.ceilingHeight, p1.y);
+    float height1_floor = projectHeight(0, p1.y); // wall.floorHeight, p1.y);
+    float height1_ceil  = projectHeight(10, p1.y); // wall.ceilingHeight, p1.y);
 
-    float height2_floor = projectHeight(wall.floorHeight, p2.y);
-    float height2_ceil  = projectHeight(wall.ceilingHeight, p2.y);
+    float height2_floor = projectHeight(0, p2.y); // wall.floorHeight, p2.y);
+    float height2_ceil  = projectHeight(10, p2.y); // wall.ceilingHeight, p2.y);
 
     QPolygonF polygon;
     polygon << QPointF(screen1.x, height1_ceil)
@@ -197,13 +197,13 @@ void RenderManager::renderGun()
 }
 
 // UTILISEE POUR EXEMPLE
-void RenderManager::render(Actor m_player, Actor m_enemy, BSP* bsp)
+void RenderManager::render(Actor m_player, Actor m_enemy, BSP* bsp, const std::vector<Vertex>& verteces)
 {
     m_scene->clear();
-    bsp->traverse(m_player.getPosition(), renderedWalls);
+    bsp->traverse(m_player.getPosition(), renderedWalls, verteces);
 
     for (const Linedef& wall : renderedWalls) {
-        renderWall(wall, m_player);
+        renderWall(wall, verteces, m_player);
     }
     renderActor(m_enemy, m_player, QColor(255,0,0));
 

@@ -13,7 +13,7 @@ BSP::BSP()
     root = nullptr;
 }
 
-Node* BSP::Builder(std::vector<Linedef> segments)
+Node* BSP::Builder(std::vector<Linedef> segments, std::vector<Vertex>& verteces)
 {
     // Safety verifications
     if (segments.empty()) return nullptr;
@@ -37,12 +37,12 @@ Node* BSP::Builder(std::vector<Linedef> segments)
     {
 
         // We make the cross product to evaluate the position of a line compared to the partition
-        float deltaXSegmentEnd = segments[i].end.x - node->partition.start.x;
-        float deltaYSegmentEnd = segments[i].end.y - node->partition.start.y;
-        float deltaXSegmentStart = segments[i].start.x - node->partition.start.x;
-        float deltaYSegmentStart = segments[i].start.y - node->partition.start.y;
-        float deltaXPartition = node->partition.end.x - node->partition.start.x;
-        float deltaYPartition = node->partition.end.y - node->partition.start.y;
+        float deltaXSegmentEnd = verteces[segments[i].end].x - verteces[node->partition.start].x;
+        float deltaYSegmentEnd = verteces[segments[i].end].y - verteces[node->partition.start].y;
+        float deltaXSegmentStart = verteces[segments[i].start].x - verteces[node->partition.start].x;
+        float deltaYSegmentStart = verteces[segments[i].start].y - verteces[node->partition.start].y;
+        float deltaXPartition = verteces[node->partition.end].x - verteces[node->partition.start].x;
+        float deltaYPartition = verteces[node->partition.end].y - verteces[node->partition.start].y;
 
         float crossProductEnd = (deltaXSegmentEnd * deltaYPartition) - (deltaYSegmentEnd * deltaXPartition);
         float crossProductStart = (deltaXSegmentStart * deltaYPartition) - (deltaYSegmentStart * deltaXPartition);
@@ -60,39 +60,40 @@ Node* BSP::Builder(std::vector<Linedef> segments)
             // Let's create a new point to divide the segment into a front one and a back one
             Vertex intersection;
 
-            float dxSeg = segments[i].end.x - segments[i].start.x;
-            float dySeg = segments[i].end.y - segments[i].start.y;
-            float dxPar = node->partition.end.x - node->partition.start.x;
-            float dyPar = node->partition.end.y - node->partition.start.y;
+            float dxSeg = verteces[segments[i].end].x - verteces[segments[i].start].x;
+            float dySeg = verteces[segments[i].end].y - verteces[segments[i].start].y;
+            float dxPar = verteces[node->partition.end].x - verteces[node->partition.start].x;
+            float dyPar = verteces[node->partition.end].y - verteces[node->partition.start].y;
 
             if (dxSeg == 0) // vertical segment case
             {
-                intersection.x = segments[i].start.x;
-                if (dxPar != 0) intersection.y = node->partition.start.y + (intersection.x - node->partition.start.x) * (dyPar / dxPar); // vertical partition case
-                else intersection.y = segments[i].start.y;
+                intersection.x = verteces[segments[i].start].x;
+                if (dxPar != 0) intersection.y = verteces[node->partition.start].y + (intersection.x - verteces[node->partition.start].x) * (dyPar / dxPar); // vertical partition case
+                else intersection.y = verteces[segments[i].start].y;
             }
             else if (dxPar == 0) // vertical partition case
             {
-                intersection.x = node->partition.start.x;
-                intersection.y = segments[i].start.y + (intersection.x - segments[i].start.x) * dySeg / dxSeg;
+                intersection.x = verteces[node->partition.start].x;
+                intersection.y = verteces[segments[i].start].y + (intersection.x - verteces[segments[i].start].x) * dySeg / dxSeg;
             }
             else
             {
                 float slopeSeg = dySeg/dxSeg;
-                float slopePar = dyPar/dyPar;
+                float slopePar = dyPar/dxPar;
 
-                float bSeg = segments[i].end.y - (slopeSeg*segments[i].end.x);
-                float bPar = node->partition.end.y - (slopePar*node->partition.end.x);
+                float bSeg = verteces[segments[i].end].y - (slopeSeg*verteces[segments[i].end].x);
+                float bPar = verteces[node->partition.end].y - (slopePar*verteces[node->partition.end].x);
 
                 // Now, we find the intersection point.
                 //This could be done from the biginning, but for readability, we created new variables.
                 intersection.x = (bSeg - bPar) / (slopePar - slopeSeg);
                 intersection.y = (slopeSeg*intersection.x) + bSeg;
             }
+            verteces.push_back(intersection);
 
             // Now, we just devide the segment with the two points and we push.
-            Linedef segA = {segments[i].start, intersection, segments[i].floorHeight, segments[i].ceilingHeight};
-            Linedef segB = {intersection, segments[i].end, segments[i].floorHeight, segments[i].ceilingHeight};
+            Linedef segA = {segments[i].start, int(verteces.size()-1), 0, 10}; //segments[i].floorHeight, segments[i].ceilingHeight};
+            Linedef segB = {int(verteces.size()-1), segments[i].end, 0, 10}; //segments[i].floorHeight, segments[i].ceilingHeight};
 
             if (crossProductStart > 0)
             {
@@ -106,44 +107,44 @@ Node* BSP::Builder(std::vector<Linedef> segments)
             }
         }
     }
-    node->front = Builder(frontLines);
-    node->back = Builder(backLines);
+    node->front = Builder(frontLines, verteces);
+    node->back = Builder(backLines, verteces);
     return node;
 }
 
-void BSP::traverse(const Vertex& playerPosition, std::vector<Linedef>& renderedWalls)
+void BSP::traverse(const Vertex& playerPosition, std::vector<Linedef>& renderedWalls, const std::vector<Vertex>& verteces)
 {
     renderedWalls.clear();
-    traverseNode(root, playerPosition, renderedWalls);
+    traverseNode(root, playerPosition, renderedWalls, verteces);
 }
 
-void BSP::traverseNode(Node* node, const Vertex& playerPosition, std::vector<Linedef>& walls)
+void BSP::traverseNode(Node* node, const Vertex& playerPosition, std::vector<Linedef>& walls, const std::vector<Vertex>& verteces)
 {
     if (!node) return;
 
-    float dxPartition = node->partition.end.x - node->partition.start.x;
-    float dyPartition = node->partition.end.y - node->partition.start.y;
-    float dxPlayer = playerPosition.x - node->partition.start.x;
-    float dyPlayer = playerPosition.y - node->partition.start.y;
+    float dxPartition = verteces[node->partition.end].x - verteces[node->partition.start].x;
+    float dyPartition = verteces[node->partition.end].y - verteces[node->partition.start].y;
+    float dxPlayer = playerPosition.x - verteces[node->partition.start].x;
+    float dyPlayer = playerPosition.y - verteces[node->partition.start].y;
 
     float cross = dxPartition * dyPlayer - dyPartition * dxPlayer;
 
     if (cross < 0)
     {
-        traverseNode(node->back, playerPosition, walls);
+        traverseNode(node->back, playerPosition, walls, verteces);
         walls.push_back(node->partition);
-        traverseNode(node->front, playerPosition, walls);
+        traverseNode(node->front, playerPosition, walls, verteces);
     }
     else
     {
-        traverseNode(node->front, playerPosition, walls);
+        traverseNode(node->front, playerPosition, walls, verteces);
         walls.push_back(node->partition);
-        traverseNode(node->back, playerPosition, walls);
+        traverseNode(node->back, playerPosition, walls, verteces);
     }
 }
 
-void BSP::build(const std::vector<Linedef>& segments)
+void BSP::build(const std::vector<Linedef>& segments, std::vector<Vertex>& verteces)
 {
     delete root;
-    root = Builder(segments);
+    root = Builder(segments, verteces);
 }

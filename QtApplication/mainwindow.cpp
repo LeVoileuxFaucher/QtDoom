@@ -11,6 +11,9 @@ Modifications:
     Date: Febuary 24, 2026
         Author: Léanne Héroux
         Description: Added the gamePage the menuPage and the levelPage to the mainWindow
+    Date: March 1, 2026
+        Author: Léanne Héroux
+        Description: Fixed the class hierarchy
 */
 #include "mainwindow.h"
 

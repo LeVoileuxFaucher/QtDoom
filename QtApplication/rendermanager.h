@@ -27,9 +27,9 @@ class RenderManager
 public:
     RenderManager(QGraphicsScene* scene, int screenWidth, int screenHeight);
 
-    void renderWall(const Linedef& wall, const Actor& player);
+    void renderWall(const Linedef& wall, const std::vector<Vertex>& verteces, const Actor& player);
 
-    void render(Actor m_player, Actor m_enemy, BSP* bsp);
+    void render(Actor m_player, Actor m_enemy, BSP* bsp, const std::vector<Vertex>& verteces);
     void renderActor(const Actor m_actor, const Actor m_player, QColor color);
     std::vector<Linedef> getRenderedWalls();
     void renderRay(float targetScreenX, float targetScreenY, int frames);

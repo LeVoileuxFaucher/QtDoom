@@ -9,6 +9,12 @@ GameManager::GameManager() {
     e = new Actor();
     e->setPosition(5.0f,5.0f);
     e->setAngle(0.0f);
+
+    map = new MapReader();
+
+    std::vector<Vertex> verteces;
+    std::vector<Linedef> linedefs;
+    std::vector<Sector> sectors;
 }
 
 Actor* GameManager::getPlayer()
@@ -23,25 +29,21 @@ Actor* GameManager::getEnemy()
 
 void GameManager::loadMap(const std::string& filename)
 {
-    // Hardcoded for now, replace with filename when you want to generate the map from the file.
-    walls = {
-        // Outer square (60x60 centered at origin)
-        {{-30.0f, 30.0f}, {30.0f, 30.0f}, 0.0f, 20.0f},    // North wall (top)
-        {{30.0f, 30.0f}, {30.0f, -30.0f}, 0.0f, 20.0f},    // East wall (right)
-        {{30.0f, -30.0f}, {-30.0f, -30.0f}, 0.0f, 20.0f},  // South wall (bottom)
-        {{-30.0f, -30.0f}, {-30.0f, 30.0f}, 0.0f, 20.0f},  // West wall (left)
+    if (!map->load(filename))
+    {
+        qDebug() << "ERROR: Failed to load map";
+        return;
+    }
 
-        // Inner square obstacle (10x10 offset to the side)
-        {{10.0f, 15.0f}, {20.0f, 15.0f}, 0.0f, 20.0f},     // Inner north
-        {{20.0f, 15.0f}, {20.0f, 5.0f}, 0.0f, 20.0f},      // Inner east
-        {{20.0f, 5.0f}, {10.0f, 5.0f}, 0.0f, 20.0f},       // Inner south
-        {{10.0f, 5.0f}, {10.0f, 15.0f}, 0.0f, 20.0f}       // Inner west
-    };
+    verteces = map->getVerteces();
+    linedefs = map->getLinedefs();
+    sectors = map->getSectors();
+
     bsp = new BSP();
-    bsp->build(walls);
 
     m_playerWeapon = new Weapon(1, 1000.0f, 2.0f, 10, 2.5f);
     p->setWeapon(m_playerWeapon);
+    bsp->build(linedefs, verteces);
 }
 
 BSP* GameManager::getBSP()
