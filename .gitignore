@@ -44,6 +44,8 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
+CMakeFiles/
+CMakeCache.txt
 
 # QtCreator 4.8< compilation database
 compile_commands.json
@@ -52,3 +54,8 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+
+# Build folders
+build/
+*/build/
+QtApplication/build/
