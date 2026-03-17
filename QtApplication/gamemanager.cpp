@@ -17,6 +17,16 @@ GameManager::GameManager() {
     std::vector<Sector> sectors;
 }
 
+void GameManager::restartGame()
+{
+    p->setPosition(0.0f, 0.0f);
+    p->setAngle(0.0f);
+    p->getWeapon()->resetGameAmmo();
+    p->resetPlayerHealth();
+    updateVie();
+    //faut aussi replacer les monstres
+}
+
 Actor* GameManager::getPlayer()
 {
     return p;
@@ -85,6 +95,7 @@ void GameManager::update(float deltaTime, std::vector<Linedef> renderedWalls)
         if (p->getHealth() < 1)
         {
             qDebug("Player Dead");
+            emit playerDead();
         }
     }
     else

@@ -105,8 +105,13 @@ bool Actor::hasWeapon() const
     }
     return false;
 }
+
 void Actor::setMovement(bool movement)
 {
     canMove = movement;
 }
 
+void Actor::resetPlayerHealth()
+{
+    health = 15;
+}

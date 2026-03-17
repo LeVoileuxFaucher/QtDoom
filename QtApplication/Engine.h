@@ -53,6 +53,11 @@ public:
 
 public slots:
     void start();
+    void pauseGame();
+    void resumeGame();
+    void restartGame();
+    void quitGame();
+    void gameOver();
 };
 
 #endif

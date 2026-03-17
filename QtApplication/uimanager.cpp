@@ -134,6 +134,7 @@ void UIManager::potIsTurning()
     {
         //qDebug() << "show popup";
         getGamePage()->showMenuPopup();
+        emit pauseGame();
     }
     else
     {

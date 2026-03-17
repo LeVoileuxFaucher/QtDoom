@@ -129,6 +129,7 @@ public slots:
     void updateHighlight();
     void activateSelectedButton();
     void showMenuPopup();
+    void gameOver();
 };
 
 #endif // GAMEPAGE_H

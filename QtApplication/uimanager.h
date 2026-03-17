@@ -33,6 +33,7 @@ signals:
     void startGame();
     void keyReleaseSig(QKeyEvent *event);
     void keyPressSig(QKeyEvent *event);
+    void pauseGame();
 
 public slots:
     void potIsTurning();

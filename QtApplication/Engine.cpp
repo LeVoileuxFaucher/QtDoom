@@ -33,6 +33,15 @@ Engine::Engine(QGraphicsScene *scene, int width, int height, QObject *parent, QG
     connect(cManager, SIGNAL(potStopedSig()), uiManager, SLOT(potStops()));
     connect(cManager, SIGNAL(shootPressedSig()), uiManager, SLOT(shootPressed()));
     connect(cManager, SIGNAL(shootReleasedSig()), uiManager, SLOT(shootReleased()));
+    //pause, continue, recommence jeu
+    connect(uiManager, SIGNAL(pauseGame()), this, SLOT(pauseGame()));
+    connect(uiManager->getGamePage(), SIGNAL(menu_continueClickedSig()), this, SLOT(resumeGame()));
+    connect(uiManager->getGamePage(), SIGNAL(menu_quitClickedSig()), this, SLOT(quitGame()));
+    connect(uiManager->getGamePage(), SIGNAL(menu_retryClickedSig()), this, SLOT(restartGame()));
+    //playerDead gameOver
+    connect(gManager, SIGNAL(playerDead()), this, SLOT(gameOver()));
+    connect(uiManager->getGamePage(), SIGNAL(over_quitClickedSig()), this, SLOT(quitGame()));
+    connect(uiManager->getGamePage(), SIGNAL(over_retryClickedSig()), this, SLOT(restartGame()));
     // This was missing — without it gameLoop() never gets called
     connect(&timer, &QTimer::timeout, this, &Engine::gameLoop);
     connect(gManager->getWeapon(), SIGNAL(sigUpdateBalles(int)), uiManager, SLOT(updateBalles(int)));
@@ -47,6 +56,39 @@ void Engine::start()
 {
     elapsedTimer.start();
     timer.start(1000 / TARGET_FPS);
+}
+
+void Engine::pauseGame()
+{
+    qDebug("pauseGame");
+    timer.stop();
+}
+
+void Engine::resumeGame()
+{
+    qDebug("resumeGame");
+    timer.start(1000 / TARGET_FPS);
+}
+
+void Engine::restartGame()
+{
+    qDebug("restartGame");
+    elapsedTimer.restart();
+    gManager->restartGame();
+    resumeGame();
+}
+
+void Engine::quitGame()
+{
+    qDebug("quitGame");
+    elapsedTimer.restart();
+    gManager->restartGame();
+}
+
+void Engine::gameOver()
+{
+    pauseGame();
+    uiManager->getGamePage()->gameOver();
 }
 
 void Engine::gameLoop()

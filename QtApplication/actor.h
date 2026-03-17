@@ -49,6 +49,7 @@ public:
     Weapon* getWeapon() const;
     bool hasWeapon() const;
 
+    void resetPlayerHealth();
 };
 
 #endif

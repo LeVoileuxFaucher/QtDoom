@@ -40,6 +40,7 @@ public:
 
     void updateVie();
     Weapon* getWeapon();
+    void restartGame();
 
 private:
     Actor *p;
@@ -61,6 +62,7 @@ private:
 signals:
     void sigUpdateVie(int value);
     void sigUpdateBalles(int value);
+    void playerDead();
 };
 
 #endif // GAMEMANAGER_H

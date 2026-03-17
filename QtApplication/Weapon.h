@@ -52,6 +52,7 @@ public:
     void  updatePowerUp();
     bool  isPoweredUp();
     void updateBalles();
+    void resetGameAmmo();
 
 signals:
     void sigUpdateBalles(int value);

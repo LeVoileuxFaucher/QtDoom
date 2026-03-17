@@ -40,13 +40,14 @@ bool Weapon::canShoot()
 void Weapon::shoot()
 {
     m_currentAmmo--;
+    updateBalles();
     m_shootTimer.restart();
-
     if(m_currentAmmo ==0)
     {
+        //qDebug("if ammo 0, on call reload");
         reload();
     }
-    updateBalles();
+
 }
 
 void Weapon::reload()
@@ -56,16 +57,20 @@ void Weapon::reload()
     m_isReloading = true;
     m_reloadTimer.restart();
     m_shootTimer.restart();
+    //qDebug("timer reload start");
+    isReloading();
 }
 
 bool Weapon::isReloading()
 {
-    if (m_isReloading)
+    while (m_isReloading)
     {
         if (m_reloadTimer.elapsed() >= m_reloadTime * 1000.0f)
         {
             m_isReloading = false;
             m_currentAmmo = m_maxAmmo;
+            //qDebug("fini reload");
+            updateBalles();
             m_shootTimer.restart();
         }
     }
@@ -132,6 +137,12 @@ int     Weapon::getMaxAmmo()     { return m_maxAmmo;          }
 void Weapon::updateBalles()
 {
     int balles=getCurrentAmmo();
-    qDebug("ammo left %d", balles);
+    //qDebug("ammo left %d", balles);
     emit sigUpdateBalles(balles);
+}
+
+void Weapon::resetGameAmmo()
+{
+    m_currentAmmo = m_maxAmmo;
+    updateBalles();
 }

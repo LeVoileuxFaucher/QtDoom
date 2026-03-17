@@ -411,3 +411,9 @@ void GamePage::updateBalles(int balles)
 {
     m_barBalles->setValue(balles);
 }
+
+void GamePage::gameOver()
+{
+    stackedWidget->setCurrentWidget(gameOverWidget);
+    updateHighlight();
+}
