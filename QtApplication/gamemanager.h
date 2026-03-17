@@ -13,6 +13,7 @@ Modifications:
 #include <QApplication>
 #include <QProcess>
 #include <QElapsedTimer>
+#include <QObject>
 
 #include"actor.h"
 #include"geostructs.h"
@@ -20,8 +21,9 @@ Modifications:
 #include "Weapon.h"
 #include"mapreader.h"
 
-class GameManager
+class GameManager: public QObject
 {
+    Q_OBJECT
 public:
     GameManager();
     Actor* getPlayer();
@@ -35,6 +37,10 @@ public:
     const std::vector<Vertex>& getVerteces() const {return verteces;};
     const std::vector<Linedef>& getLinedefs() const {return linedefs;};
     const std::vector<Sector>& getSectors() const {return sectors;};
+
+    void updateVie();
+    Weapon* getWeapon();
+
 private:
     Actor *p;
     Actor *e;
@@ -51,6 +57,10 @@ private:
     QElapsedTimer m_enemyAttackTimer;
     float m_attackCooldown = 1000.0f;
     bool m_inContact = false;
+
+signals:
+    void sigUpdateVie(int value);
+    void sigUpdateBalles(int value);
 };
 
 #endif // GAMEMANAGER_H

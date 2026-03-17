@@ -8,12 +8,10 @@ Modifications:
 
 #ifndef ACTOR_H
 #define ACTOR_H
-
-#include"geostructs.h"
+#include "geostructs.h"
 #include "Weapon.h"
 
-
-class Actor {
+class Actor{
 private:
     Vertex position;
     int health;

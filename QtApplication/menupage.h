@@ -17,12 +17,33 @@ class MenuPage : public QWidget
 public:
     MenuPage(QWidget *parent = nullptr);
 
-    QPushButton* playButton() const { return m_playButton; }
-    QPushButton* levelButton() const { return m_levelButton; }
+    QPushButton* playButton() const { return menu_playButton; }
+    QPushButton* levelButton() const { return menu_levelButton; }
+    void menu_levelClicked();
+    void menu_playClicked();
 
 private:
-    QPushButton *m_playButton;
-    QPushButton *m_levelButton;
+    QPushButton *menu_playButton;
+    QPushButton *menu_levelButton;
+    QVector<QPushButton*> menuButtons;
+    QLabel *label_doom;
+    QFont font;
+    int currentIndex=0;
+    void addDoomLabel();
+    void addPlayButton();
+    void addLevelButton();
+    void addPageLayout();
+    void connectButtons();
+
+public slots:
+    void changeButtons();
+    void setupNextSelect();
+    void updateHighlight();
+    void activateSelectedButton();
+
+signals:
+    void menu_levelClickedSig();
+    void menu_playClickedSig();
 };
 
 #endif // MENUPAGE_H

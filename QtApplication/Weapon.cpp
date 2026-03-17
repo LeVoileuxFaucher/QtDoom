@@ -36,6 +36,7 @@ bool Weapon::canShoot()
     float cd = (1.0f / fireRate) * 1000.0f;
      return m_shootTimer.elapsed() >= cd;
 }
+
 void Weapon::shoot()
 {
     m_currentAmmo--;
@@ -45,13 +46,13 @@ void Weapon::shoot()
     {
         reload();
     }
+    updateBalles();
 }
 
 void Weapon::reload()
 {
     if (m_isReloading)        return;
     if (m_currentAmmo == m_maxAmmo) return;
-
     m_isReloading = true;
     m_reloadTimer.restart();
     m_shootTimer.restart();
@@ -127,3 +128,10 @@ bool Weapon::isPoweredUp() { return m_isPoweredUp; }
 bool    Weapon::isEmpty()        { return m_currentAmmo <= 0; }
 int     Weapon::getCurrentAmmo() { return m_currentAmmo;      }
 int     Weapon::getMaxAmmo()     { return m_maxAmmo;          }
+
+void Weapon::updateBalles()
+{
+    int balles=getCurrentAmmo();
+    qDebug("ammo left %d", balles);
+    emit sigUpdateBalles(balles);
+}

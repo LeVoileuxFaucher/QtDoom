@@ -44,6 +44,16 @@ void ControllerManager::keyPressedEvent(QKeyEvent * event)
     {
         m_powerUp = true;
     }
+    if (event->key() == Qt::Key_O)
+    {
+        potTurns = true;
+        potTurnedEvent();
+    }
+    if (event->key() == Qt::Key_Return)
+    {
+        mReturn = true;
+        shootPressedEvent();
+    }
 }
 
 void ControllerManager::keyReleasedEvent(QKeyEvent * event)
@@ -57,5 +67,39 @@ void ControllerManager::keyReleasedEvent(QKeyEvent * event)
     if (event->key() == Qt::Key_F) shoot = false;
     if (event->key() == Qt::Key_R) m_justReload = false;
     if (event->key() == Qt::Key_P) m_powerUp = false;
+    if (event->key() == Qt::Key_O)
+    {
+        potTurns = false;
+        potStopedEvent();
+    }
+    if (event->key() == Qt::Key_Return)
+    {
+        mReturn = false;
+        shootReleasedEvent();
+    }
 }
+
+void ControllerManager::potTurnedEvent()
+{
+    //qDebug() << "pot turned";
+    emit potTurnedSig();
+}
+
+void ControllerManager::potStopedEvent()
+{
+    //qDebug() << "pot stoped";
+    emit potStopedSig();
+}
+
+void ControllerManager::shootPressedEvent()
+{
+    //qDebug() << "shoot pressed";
+    emit shootPressedSig();
+}
+void ControllerManager::shootReleasedEvent()
+{
+    //qDebug() << "shoot released";
+    emit shootReleasedSig();
+}
+
 

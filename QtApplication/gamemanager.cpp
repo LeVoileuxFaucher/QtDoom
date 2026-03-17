@@ -72,11 +72,13 @@ void GameManager::update(float deltaTime, std::vector<Linedef> renderedWalls)
             m_enemyAttackTimer.restart();
             e->setMovement(false);
             p->takeDamage(1);
+            updateVie();
         }
         else if(m_enemyAttackTimer.elapsed() >= m_attackCooldown)
         {
             m_inContact = false;
             p->takeDamage(1);
+            updateVie();
             m_enemyAttackTimer.restart();
         }
 
@@ -117,6 +119,7 @@ bool GameManager::shoot(QPoint mousePos, QSize screenSize)
     }
 
     weapon->shoot();
+
     float screenW    = screenSize.width();
     float focalLength = screenW / 2.0f;
 
@@ -156,7 +159,17 @@ bool GameManager::shoot(QPoint mousePos, QSize screenSize)
         }
     }
 
-
     qDebug() << "Manqué";
     return false;
+}
+
+void GameManager::updateVie()
+{
+    int vie=p->getHealth();
+    emit sigUpdateVie(vie);
+}
+
+Weapon* GameManager::getWeapon()
+{
+    return m_playerWeapon;
 }

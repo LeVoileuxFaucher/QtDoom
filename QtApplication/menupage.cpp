@@ -13,28 +13,111 @@ Modifications:
 MenuPage::MenuPage(QWidget *parent)
     : QWidget(parent)
 {
-    QLabel *label_doom = new QLabel("DOOM");
-    QFont font;
+    addDoomLabel();
+    addPlayButton();
+    addLevelButton();
+    addPageLayout();
+    //ajout a la liste
+    menuButtons.append(menu_levelButton);
+    menuButtons.append(menu_playButton);
+    connectButtons();
+    updateHighlight();
+}
+
+void MenuPage::addDoomLabel()
+{
+    label_doom = new QLabel("DOOM");
     font.setPointSize(36);
     font.setBold(true);
     label_doom->setFont(font);
+}
 
-    m_playButton = new QPushButton("Play");
-    m_playButton->setMinimumSize(150, 40);
-    m_playButton->setStyleSheet("QPushButton{border-width: 4px; border-style: solid; border-color: green; border-radius: 15px; color:black;} QPushButton:hover{background-color:blue");
+void MenuPage::addPlayButton()
+{
+    menu_playButton = new QPushButton("Play");
+    menu_playButton->setMinimumSize(150, 40);
+    menu_playButton->setStyleSheet("border-width: 4px; border-style: solid; border-color: green; border-radius: 15px; color:black;");
+}
 
+void MenuPage::addLevelButton()
+{
+    menu_levelButton = new QPushButton("Niveaux");
+    menu_levelButton->setMinimumSize(80, 25);
+    menu_levelButton->setStyleSheet("border-width: 1px; border-style: solid; border-color: black; color:black;");
+}
 
-    m_levelButton = new QPushButton("Niveaux");
-    m_levelButton->setMinimumSize(80, 25);
-    m_levelButton->setStyleSheet("border-width: 1px; border-style: solid; border-color: black; color:black;");
-
+void MenuPage::addPageLayout()
+{
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addStretch();
     layout->addWidget(label_doom, 0, Qt::AlignCenter);
     layout->addSpacing(30);
-    layout->addWidget(m_levelButton, 0, Qt::AlignCenter);
+    layout->addWidget(menu_levelButton, 0, Qt::AlignCenter);
     layout->addSpacing(30);
-    layout->addWidget(m_playButton, 0, Qt::AlignCenter);
+    layout->addWidget(menu_playButton, 0, Qt::AlignCenter);
     layout->addStretch();
 }
 
+void MenuPage::connectButtons()
+{
+    connect(menu_levelButton, &QPushButton::clicked, this, &MenuPage::menu_levelClicked);
+    connect(menu_playButton, &QPushButton::clicked, this, &MenuPage::menu_playClicked);
+}
+
+void MenuPage::updateHighlight()
+{
+    //qDebug() << "update light";
+    // Réinitialiser les styles de tous les boutons
+    for (int i=0; i<menuButtons.size(); i++) {
+        menuButtons[i]->setStyleSheet("background-color: black; color: white;");
+    }
+
+    // Appliquer un style au bouton sélectionné
+    if (currentIndex < menuButtons.size())
+    {
+        menuButtons[currentIndex]->setStyleSheet("background-color: darkgray; color: black;");
+    }
+}
+
+void MenuPage::activateSelectedButton()
+{
+    //qDebug() << "click selection dans menu";
+    if (currentIndex == 0)
+    {
+        menu_levelClicked();
+    }
+    else if (currentIndex == 1)
+    {
+        menu_playClicked();
+    }
+}
+
+void MenuPage::menu_levelClicked()
+{
+    //qDebug() << "menu_levelClicked";
+    emit menu_levelClickedSig();
+}
+
+void MenuPage::menu_playClicked()
+{
+    //qDebug() << "menu_playClicked";
+    emit menu_playClickedSig();
+}
+
+void MenuPage::changeButtons()
+{
+    //qDebug() << "changeButtons";
+    currentIndex++;
+    if (currentIndex > 1)
+    {
+        currentIndex = 0;
+    }
+    //qDebug() << "current index:" << currentIndex;
+}
+
+void MenuPage::setupNextSelect()
+{
+    //qDebug() << "setup Next";
+    currentIndex=0;
+    updateHighlight();
+}

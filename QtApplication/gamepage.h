@@ -5,59 +5,130 @@ File name: gamepage.h
 Description: Code for the page where the game is played
 Modifications:
 */
+
 #ifndef GAMEPAGE_H
 #define GAMEPAGE_H
+
 #include <QWidget>
 #include <QPushButton>
-#include <QLineEdit>
+#include <QLabel>
 #include <QProgressBar>
-#include <QStackedWidget>
-#include <QGraphicsView>
-#include <QGraphicsScene>
+#include <QLineEdit>
+#include <QKeyEvent>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QLabel>
+#include <QGraphicsView>
+#include <QStackedWidget>
 
 class GamePage : public QWidget
 {
     Q_OBJECT
 
 public:
-    GamePage(QGraphicsView *view, QWidget *parent = nullptr);
-
-    // Widgets importants accessibles
-    QPushButton* quitterButton() const { return m_quitterButton; }
-    QPushButton* retryButton() const { return m_retryButton; }
-    QPushButton* shootButton() const { return m_shootButton; }
-    QProgressBar* vieBar() const { return m_barVie; }
-    QLineEdit* amoEdit() const { return m_writeAmo; }
-
-    // Game Over popup
-    QWidget* gameOverPopup() const { return m_gameOverWidget; }
-
-    void keyPressEvent(QKeyEvent *event) override;
-    void keyReleaseEvent(QKeyEvent *event) override;
+    explicit GamePage(QGraphicsView *view, QWidget *parent = nullptr);
+    bool gameIsOn();
+    void updateVie(int vie);
+    void updateBalles(int balles);
 
 private:
+    QStackedWidget *stackedWidget;
 
-    // Boutons
-    QPushButton *m_quitterButton;
-    QPushButton *m_retryButton;
+    QWidget *gameWidget;
+    QWidget *popupWidget;
+    QWidget *gameOverWidget;
+    QWidget *centralWidget;
+    QWidget *barWidget;
+
+    QPushButton *menu_retryButton;
+    QPushButton *menu_quitButton;
+    QPushButton *menu_continueButton;
+    QPushButton *over_retryButton;
+    QPushButton *over_quitButton;
     QPushButton *m_shootButton;
 
-    // HUD
+    QVBoxLayout *mainLayout;
+    QVBoxLayout *gameLayout;
+    QVBoxLayout *centralLayout;
+    QVBoxLayout *popupLayout;
+    QVBoxLayout *buttonLayout;
+    QVBoxLayout *buttonOverLayout;
+    QVBoxLayout *gameOverLayout;
+
+    QHBoxLayout *barLayout;
+    QHBoxLayout *retryButtonLayout;
+    QHBoxLayout *quitButtonLayout;
+    QHBoxLayout *continueButtonLayout;
+    QHBoxLayout *retryOverButtonLayout;
+    QHBoxLayout *quitOverButtonLayout;
+
+    QLabel *labelVie;
+    QLabel *labelBalles;
+    QLabel *labelAmo;
+    QLabel *popupTitle;
+    QLabel *gameOverTitle;
+
+    QFont font;
+    QFont overFont;
+
     QProgressBar *m_barVie;
+    QProgressBar *m_barBalles;
     QLineEdit *m_writeAmo;
 
-    // Game Over
-    QWidget *m_gameOverWidget;
-    QStackedWidget *m_stackedWidget;
+    QVector<QPushButton*> menuButtons;
+    QVector<QPushButton*> overButtons;
+
+    bool potTurns=false;
+    bool shootPress=false;
+    int menuCurrentIndex=0;
+    int overCurrentIndex=0;
+
+    void addGameWidget(QGraphicsView *view);
+    void addMenuPopupWidget();
+    void addGameoverWidget();
+    void connectButtons();
+    void addVieProgressBar();
+    void addBallesNum();
+    void addBarreEtat();
+    void addLayoutBarreEtat();
+    void addRetryButtonMenu();
+    void addContinueButtonMenu();
+    void addQuitButtonMenu();
+    void addRetryButtonMenuLayout();
+    void addContinueButtonMenuLayout();
+    void addQuitButtonMenuLayout();
+    void addPageMenuLayout();
+    void addTitleMenu();
+    void addTitleMenuLayout();
+    void addTitleOver();
+    void addRetryButtonOver();
+    void addQuitButtonOver();
+    void addTitleOverLayout();
+    void addRetryButtonOverLayout();
+    void addQuitButtonOverLayout();
+    void addPageOverLayout();
+    void addBallesProgressBar();
+
+signals:
+    void menu_quitClickedSig();
+    void menu_retryClickedSig();
+    void menu_continueClickedSig();
+    void over_quitClickedSig();
+    void over_retryClickedSig();
 
 protected:
     void showEvent(QShowEvent *event) override;
+    void menu_quitClicked();
+    void menu_retryClicked();
+    void menu_continueClicked();
+    void over_quitClicked();
+    void over_retryClicked();
 
-signals:
-    void keyPressSig(QKeyEvent *event);
-    void keyReleaseSig(QKeyEvent *event);
+public slots:
+    void changeButtons();
+    void setupNextSelect();
+    void updateHighlight();
+    void activateSelectedButton();
+    void showMenuPopup();
 };
+
 #endif // GAMEPAGE_H

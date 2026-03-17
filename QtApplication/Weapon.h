@@ -9,8 +9,10 @@ Modifications:
 #ifndef WEAPON_H
 #define WEAPON_H
 #include <QElapsedTimer>
+#include <QObject>
 
-class Weapon {
+class Weapon: public QObject{
+    Q_OBJECT
 private:
     int damage;
     float range;
@@ -49,6 +51,10 @@ public:
     void  powerUp();
     void  updatePowerUp();
     bool  isPoweredUp();
+    void updateBalles();
+
+signals:
+    void sigUpdateBalles(int value);
 };
 
 #endif
