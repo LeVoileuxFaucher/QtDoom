@@ -92,8 +92,8 @@ Node* BSP::Builder(std::vector<Linedef> segments, std::vector<Vertex>& verteces)
             verteces.push_back(intersection);
 
             // Now, we just devide the segment with the two points and we push.
-            Linedef segA = {segments[i].start, int(verteces.size()-1), 0, 10}; //segments[i].floorHeight, segments[i].ceilingHeight};
-            Linedef segB = {int(verteces.size()-1), segments[i].end, 0, 10}; //segments[i].floorHeight, segments[i].ceilingHeight};
+            Linedef segA = {segments[i].start, int(verteces.size()-1), segments[i].sideFront, segments[i].sideBack, segments[i].twoSided};
+            Linedef segB = {int(verteces.size()-1), segments[i].end, segments[i].sideFront, segments[i].sideBack, segments[i].twoSided};
 
             if (crossProductStart > 0)
             {

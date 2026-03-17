@@ -25,7 +25,7 @@ struct Linedef // Think of it as a segment or a line
     bool twoSided;
 };
 
-struct Sidedef // Think of it as one side of the segment or the line
+struct Sidedef // Think of it as one side of the segment or the line, probably not needed because we don't render different textures
 {
     int sectorRef;
 };
