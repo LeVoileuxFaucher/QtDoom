@@ -26,4 +26,10 @@ int readJoystick_x();
 
 int readJoystick_y();
 
+int8_t getJoystickMappedY();
+
+int8_t getJoystickMappedX();
+
+char getJoystickDirection();
+
 #endif

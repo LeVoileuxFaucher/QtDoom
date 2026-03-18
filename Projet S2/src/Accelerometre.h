@@ -22,8 +22,8 @@
 
 void SetupAccelerometre(void);
 int detecterMouvement(float dx, float dy, float dz);
-int detecterRotation(float dx, float dy);
 void lireAxes(float &x, float &y, float &z);
 void CalibrerAccelerometre(int nbMesures);
+void getCursorPosition(int &xScreen, int &yScreen, int width, int height);
 
 #endif

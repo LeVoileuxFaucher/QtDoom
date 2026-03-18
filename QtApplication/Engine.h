@@ -44,9 +44,23 @@ private:
     QGraphicsScene* m_scene;
     QGraphicsView*  m_view;
 
+
+    static constexpr int CURSOR_MIN = 0;
+    static constexpr int CURSOR_MAX = 255;
+
+    float m_smoothX = -1.0f;
+    float m_smoothY = -1.0f;
+
+    static constexpr float CURSOR_LERP_SPEED = 6.0f;
+
+
+    static constexpr int   BORDER_ZONE       = 40;
+
+    static constexpr float BORDER_ROT_SPEED  = 1.2f;
+
 public:
     Engine(QGraphicsScene *scene, int width, int height, QObject *parent, QGraphicsView *view);
-	~Engine();
+    ~Engine();
     void gameLoop();
     ControllerManager* getcManager() const;
     UIManager* getuiManager() const;

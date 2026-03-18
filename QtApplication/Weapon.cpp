@@ -33,20 +33,22 @@ bool Weapon::canShoot()
     if (m_isReloading)   return false;
     if (m_currentAmmo <= 0) return false;
 
-    float cd = (1.0f / fireRate) * 1000.0f;
-     return m_shootTimer.elapsed() >= cd;
+    float cd = (1.0f / fireRate) * 10.0f;
+    return m_shootTimer.elapsed() >= cd;
+}
+
+bool Weapon::cooldownReady()
+{
+    isReloading();
+    if (m_isReloading) return false;
+    float cd = (1.0f / fireRate) * 10.0f;
+    return m_shootTimer.elapsed() >= cd;
 }
 
 void Weapon::shoot()
 {
     m_currentAmmo--;
     m_shootTimer.restart();
-
-    if(m_currentAmmo ==0)
-    {
-        reload();
-    }
-    updateBalles();
 }
 
 void Weapon::reload()
@@ -74,17 +76,17 @@ bool Weapon::isReloading()
 
 int Weapon::getDamage()
 {
-	return damage;
+    return damage;
 }
 
 float Weapon::getRange()
 {
-	return range;
+    return range;
 }
 
 float Weapon::getFireRate()
 {
-	return fireRate;
+    return fireRate;
 }
 
 void Weapon::restartShootTimer()
@@ -128,10 +130,4 @@ bool Weapon::isPoweredUp() { return m_isPoweredUp; }
 bool    Weapon::isEmpty()        { return m_currentAmmo <= 0; }
 int     Weapon::getCurrentAmmo() { return m_currentAmmo;      }
 int     Weapon::getMaxAmmo()     { return m_maxAmmo;          }
-
-void Weapon::updateBalles()
-{
-    int balles=getCurrentAmmo();
-    qDebug("ammo left %d", balles);
-    emit sigUpdateBalles(balles);
-}
+void    Weapon::setCurrentAmmo(int value) { m_currentAmmo = value; }

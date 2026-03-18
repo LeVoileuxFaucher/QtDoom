@@ -10,6 +10,7 @@ Modifications:
 
 #include <QWidget>
 #include <QPushButton>
+#include <QLabel>
 
 class MenuPage : public QWidget
 {

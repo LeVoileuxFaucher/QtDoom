@@ -2,7 +2,6 @@
 
 void SetupLed()
 {
-
     pinMode(PIN_A, OUTPUT);
     pinMode(PIN_B, OUTPUT);
     pinMode(PIN_C, OUTPUT);
@@ -10,6 +9,7 @@ void SetupLed()
     pinMode(PIN_D5, OUTPUT);
     pinMode(PIN_Vert, OUTPUT);
     pinMode(PIN_Rouge, OUTPUT);
+    pinMode(PIN_ENABLE, OUTPUT);
 }
 
 void UpdateLed(uint16_t choix)
@@ -23,6 +23,7 @@ void UpdateLed(uint16_t choix)
         return;
     previousMillis = currentMillis;
 
+    // Désactivation générale avant mise à jour
     digitalWrite(PIN_ENABLE, LOW);
     digitalWrite(PIN_D4, HIGH);
     digitalWrite(PIN_D5, HIGH);
@@ -30,56 +31,55 @@ void UpdateLed(uint16_t choix)
     digitalWrite(PIN_Rouge, HIGH);
 
     uint8_t count = 0;
-    while (count < 12)
+
+    // Mise à jour de la séquence pour les LEDs 1 à 10 (muxIndex 0 à 9)
+    while (count < 10)  // uniquement 0..9
     {
         if (bitRead(choix, muxIndex))
         {
-            if (muxIndex < 8)
+            if (muxIndex < 8) // Mux pour LEDs 1-8
             {
-
                 digitalWrite(PIN_A, (muxIndex >> 0) & 0x01);
                 digitalWrite(PIN_B, (muxIndex >> 1) & 0x01);
                 digitalWrite(PIN_C, (muxIndex >> 2) & 0x01);
                 digitalWrite(PIN_ENABLE, HIGH);
             }
-            else
+            else // LEDs 9 et 10
             {
                 digitalWrite(PIN_ENABLE, LOW);
 
                 switch (muxIndex)
                 {
-                case 8:
-                    digitalWrite(PIN_D5, LOW);
-                    break;
-                case 9:
-                    digitalWrite(PIN_D4, LOW);
-                    break;
-                case 10:
-                    digitalWrite(PIN_Rouge, LOW);
-                    break;
-                case 11:
-                    digitalWrite(PIN_Vert, LOW);
-                    break;
+                    case 8:
+                        digitalWrite(PIN_D5, LOW);
+                        break;
+                    case 9:
+                        digitalWrite(PIN_D4, LOW);
+                        break;
                 }
             }
 
             muxIndex++;
-            if (muxIndex >= 12)
+            if (muxIndex >= 10)
                 muxIndex = 0;
             break;
         }
 
         muxIndex++;
-        if (muxIndex >= 12)
+        if (muxIndex >= 10)
             muxIndex = 0;
         count++;
     }
+
+    // LEDs 11 et 12 (bits 10 et 11) activées/désactivées selon le bit
+    digitalWrite(PIN_Rouge, bitRead(choix, 10) ? LOW : HIGH);
+    digitalWrite(PIN_Vert, bitRead(choix, 11) ? LOW : HIGH);
 }
 
 uint16_t ShiftRight(uint16_t value)
 {
-    uint8_t msb = value & 0b11000000000;
-    uint8_t lower = value & 0b00111111111;
+    uint16_t msb = value   & 0b110000000000;
+    uint16_t lower = value & 0b001111111111;
 
     lower = lower >> 1;
 
@@ -88,8 +88,8 @@ uint16_t ShiftRight(uint16_t value)
 
 uint16_t ShiftLeft(uint16_t value)
 {
-    uint8_t msb = value & 0b11000000000;
-    uint8_t lower = value & 0b00111111111;
+    uint16_t msb = value   & 0b110000000000;
+    uint16_t lower = value & 0b001111111111;
 
     lower = lower << 1;
 
