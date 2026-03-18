@@ -17,7 +17,7 @@ private:
     int health;
     bool isAlive;
     float angle;
-    float EnemyRange = 15.0f;
+    float EnemyRange = 20.0f;
     float EnemySpeed = 2.0f;
     float dx = 0;
     float dy = 0;
@@ -40,11 +40,11 @@ public:
     void setPosition(float x, float y);
     void setMovement(bool mouvement);
 
-    //Enemy
+
     float distancePlayerEnemy(const Actor& E, const Actor& P);
     void moveEnemy(const Actor& P, float deltaTime);
 
-    //Weapon
+
     void setWeapon(Weapon* w);
     Weapon* getWeapon() const;
     bool hasWeapon() const;

@@ -34,7 +34,7 @@ void GamePage::addGameWidget(QGraphicsView *view)
     gameLayout->addWidget(centralWidget);
     addBarreEtat();
     addVieProgressBar();
-    //addBallesNum();
+    addBallesNum();
     addBallesProgressBar();
     //layout du jeu
     centralLayout->addWidget(view);
@@ -400,6 +400,11 @@ void GamePage::showMenuPopup()
 bool GamePage::gameIsOn()
 {
     return stackedWidget->currentWidget()==gameWidget;
+}
+
+QLineEdit* GamePage::amoEdit()
+{
+    return m_writeAmo;
 }
 
 void GamePage::updateVie(int vie)

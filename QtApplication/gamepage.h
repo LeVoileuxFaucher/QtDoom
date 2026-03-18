@@ -29,6 +29,7 @@ public:
     bool gameIsOn();
     void updateVie(int vie);
     void updateBalles(int balles);
+    QLineEdit* amoEdit();
 
 private:
     QStackedWidget *stackedWidget;

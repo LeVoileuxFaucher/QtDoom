@@ -46,7 +46,7 @@ private:
     Actor *p;
     Actor *e;
     std::vector<Actor*> creatures;
-    BSP* bsp;
+    BSP* bsp = nullptr;
     Weapon* m_playerWeapon = nullptr;
     MapReader* map;
 

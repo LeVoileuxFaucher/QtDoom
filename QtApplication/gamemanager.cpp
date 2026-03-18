@@ -2,7 +2,7 @@
 
 GameManager::GameManager() {
     p = new Actor();
-    p->setPosition(0.0f, 0.0f);
+    p->setPosition(0.0f, -2.0f);
     p->setAngle(0.0f);
 
     //temporaire a modifier
@@ -51,7 +51,7 @@ void GameManager::loadMap(const std::string& filename)
 
     bsp = new BSP();
 
-    m_playerWeapon = new Weapon(1, 1000.0f, 2.0f, 10, 2.5f);
+    m_playerWeapon = new Weapon(1, 1000.0f, 50.0f, 10, 2.5f);
     p->setWeapon(m_playerWeapon);
     bsp->build(linedefs, verteces);
 }
@@ -78,9 +78,8 @@ void GameManager::update(float deltaTime, std::vector<Linedef> renderedWalls)
 
         if(!m_inContact)
         {
-            m_inContact=true;
+            m_inContact = true;
             m_enemyAttackTimer.restart();
-            e->setMovement(false);
             p->takeDamage(1);
             updateVie();
         }
@@ -94,7 +93,7 @@ void GameManager::update(float deltaTime, std::vector<Linedef> renderedWalls)
 
         if (p->getHealth() < 1)
         {
-            qDebug("Player Dead");
+            //qDebug("Player Dead");
             emit playerDead();
         }
     }

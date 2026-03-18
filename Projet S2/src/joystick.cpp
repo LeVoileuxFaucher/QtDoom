@@ -65,3 +65,49 @@ int readJoystick_y()
 
     return read;
 }
+char getJoystickDirection()
+{
+    int x = readJoystick_x();
+    int y = readJoystick_y();
+
+    if (x == MIDDLE && y == MIDDLE)
+    {
+        return 'C'; // Centre
+    }
+
+    if (y == MAX_VALUE)
+    {
+        return 'F'; // Avant
+    }
+
+    if (y == MIN_VALUE)
+    {
+        return 'B'; // Arrière
+    }
+
+    if (x == MIN_VALUE)
+    {
+        return 'L'; // Gauche
+    }
+
+    if (x == MAX_VALUE)
+    {
+        return 'R'; // Droite
+    }
+
+    return 'C';
+}
+
+int8_t getJoystickMappedX()
+{
+    int val = readJoystick_x();
+    val = constrain(val, MIN_VALUE, MAX_VALUE);
+    return map(val, MIN_VALUE, MAX_VALUE, 0, 255);
+}
+
+int8_t getJoystickMappedY()
+{
+    int val = readJoystick_y();
+    val = constrain(val, MIN_VALUE, MAX_VALUE);
+    return map(val, MIN_VALUE, MAX_VALUE, 0, 255);
+}

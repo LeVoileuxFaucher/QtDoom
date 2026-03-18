@@ -33,8 +33,16 @@ bool Weapon::canShoot()
     if (m_isReloading)   return false;
     if (m_currentAmmo <= 0) return false;
 
-    float cd = (1.0f / fireRate) * 1000.0f;
-     return m_shootTimer.elapsed() >= cd;
+    float cd = (1.0f / fireRate) * 10.0f;
+    return m_shootTimer.elapsed() >= cd;
+}
+
+bool Weapon::cooldownReady()
+{
+    isReloading();
+    if (m_isReloading) return false;
+    float cd = (1.0f / fireRate) * 10.0f;
+    return m_shootTimer.elapsed() >= cd;
 }
 
 void Weapon::shoot()
@@ -42,12 +50,6 @@ void Weapon::shoot()
     m_currentAmmo--;
     updateBalles();
     m_shootTimer.restart();
-    if(m_currentAmmo ==0)
-    {
-        //qDebug("if ammo 0, on call reload");
-        reload();
-    }
-
 }
 
 void Weapon::reload()
@@ -79,17 +81,17 @@ bool Weapon::isReloading()
 
 int Weapon::getDamage()
 {
-	return damage;
+    return damage;
 }
 
 float Weapon::getRange()
 {
-	return range;
+    return range;
 }
 
 float Weapon::getFireRate()
 {
-	return fireRate;
+    return fireRate;
 }
 
 void Weapon::restartShootTimer()
@@ -146,3 +148,4 @@ void Weapon::resetGameAmmo()
     m_currentAmmo = m_maxAmmo;
     updateBalles();
 }
+void    Weapon::setCurrentAmmo(int value) { m_currentAmmo = value; }

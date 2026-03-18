@@ -9,4 +9,8 @@
 #include <Accelerometre.h>
 #include <LCD.h>
 
+void WriteTrame();
+void ReadTrame();
+void UpdateReloadAnimation();
+
 #endif
