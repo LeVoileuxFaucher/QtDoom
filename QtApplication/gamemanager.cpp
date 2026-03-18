@@ -12,9 +12,7 @@ GameManager::GameManager() {
 
     map = new MapReader();
 
-    std::vector<Vertex> verteces;
-    std::vector<Linedef> linedefs;
-    std::vector<Sector> sectors;
+    cManager = nullptr;
 }
 
 Actor* GameManager::getPlayer()
@@ -44,6 +42,20 @@ void GameManager::loadMap(const std::string& filename)
     m_playerWeapon = new Weapon(1, 1000.0f, 2.0f, 10, 2.5f);
     p->setWeapon(m_playerWeapon);
     bsp->build(linedefs, verteces);
+
+    cManager = new CollisionManager();
+
+    qDebug() << "=== VERTICES ===";
+    for (int i = 0; i < std::min(30, (int)verteces.size()); i++)
+    {
+        qDebug() << "v" << i << ":" << verteces[i].x << verteces[i].y;
+    }
+
+    qDebug() << "\n=== LINEDEFS ===";
+    for (int i = 0; i < linedefs.size(); i++)
+    {
+        qDebug() << "linedef" << i << ":" << linedefs[i].start << "->" << linedefs[i].end;
+    }
 }
 
 BSP* GameManager::getBSP()
@@ -55,9 +67,15 @@ void GameManager::update(float deltaTime, std::vector<Linedef> renderedWalls)
 {
     e->moveEnemy(*p, deltaTime);
 
+    std::vector<Linedef> broadedWalls;
+
     // Collision detection
-    for (const Linedef& wall : renderedWalls) {
-        float ok = 0;
+    bsp->actorToWallBroading(p->getPosition(), broadedWalls, verteces);
+    cManager->narrowingToCollide(linedefs, verteces, p);
+
+    for (Actor* creature : creatures)
+    {
+        cManager->narrowingToCollide(linedefs, verteces, creature);
     }
 
     // Enemy damage detection

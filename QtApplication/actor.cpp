@@ -102,3 +102,8 @@ bool Actor::hasWeapon() const
     return false;
 }
 
+void Actor::setPosition(Vertex newPos)
+{
+    position = newPos;
+}
+
