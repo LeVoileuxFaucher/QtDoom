@@ -44,7 +44,7 @@ void ControllerManager::keyPressedEvent(QKeyEvent * event)
     {
         m_powerUp = true;
     }
-    if (event->key() == Qt::Key_O)
+    if (event->key() == Qt::Key_Escape)
     {
         potTurns = true;
         potTurnedEvent();
@@ -67,7 +67,7 @@ void ControllerManager::keyReleasedEvent(QKeyEvent * event)
     if (event->key() == Qt::Key_F) shoot = false;
     if (event->key() == Qt::Key_R) m_justReload = false;
     if (event->key() == Qt::Key_P) m_powerUp = false;
-    if (event->key() == Qt::Key_O)
+    if (event->key() == Qt::Key_Escape)
     {
         potTurns = false;
         potStopedEvent();
